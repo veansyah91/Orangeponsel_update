@@ -26,19 +26,19 @@ class CreditApplicationInvoiceCreate extends Component
 
     public $applicationId;
 
-    public $roleUser;
+    public $roleUser, $user;
 
     public function mount($partnerId)
     {
         date_default_timezone_set('Asia/Jakarta');
         $this->tanggal = Date('Y-m-d');
 
-        $user = Auth::user();
-        $this->roleUser = RoleHelper::getRole($user->id);
+        $this->user = Auth::user();
+        $this->roleUser = RoleHelper::getRole($this->user->id);
 
         $this->partnerId = $partnerId;
 
-        $outletUser = OutletUser::where('user_id', $user->id)->first();
+        $outletUser = OutletUser::where('user_id', $this->user->id)->first();
 
         $this->outlet = $outletUser ? $outletUser->outlet_id : '';
 
@@ -109,7 +109,6 @@ class CreditApplicationInvoiceCreate extends Component
         $this->showTypeSearch = !$this->showTypeSearch;
 
         $this->stockId = $id;
-
         $this->type = $stock->product->tipe;
         $this->harga = $stock->product->jual;
         $this->jumlahUnit = $stock->jumlah;
@@ -138,6 +137,7 @@ class CreditApplicationInvoiceCreate extends Component
             'kode' => $this->kode,
             'product_id' =>  $this->productId,
             'created_at' =>  $this->tanggal,
+            'user_name' => $this->user->name
         ]);
 
         // ubah status pengajuan

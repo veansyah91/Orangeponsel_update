@@ -1,4 +1,3 @@
-
 <div>
     <div class="container">
         <div class="row justify-content-center">
@@ -84,7 +83,6 @@
                                             <th class="text-center align-middle" style="width:150px">Keputusan</th>
                                         @endrole
                                         <th class="text-center align-middle" style="width:150px">Nama Surveyor</th>
-                                        <th class="text-center align-middle">Status</th>
                                         <th class="text-center align-middle">Nama Konsumen / NIK</th>
                                         <th class="text-center align-middle">Alamat</th>
                                         <th class="text-center align-middle">Tipe Handphone</th>
@@ -114,14 +112,6 @@
                                             @endrole
 
                                             <td class="text-center">{{ $application->sales_name}}</td>
-
-                                            @if ($application->status !== "taken")
-                                                
-                                            @endif
-                                            
-                                            <td class="text-center{{ $application->status > 2 ? " text-primary" : ($application->status > 1 ? " text-danger" : ($application->status < 1 ? "" : " text-success"))}}">
-                                                {{ $application->status > 2 ? "Telah Diambil" : ($application->status > 1 ? "Ditolak" : ($application->status < 1 ? "Menunggu" : "Diterima"))}}
-                                            </td>
                                             
                                             <td>{{ $application->nama }} / {{ $application->no_ktp }}</td>
                                             <td>{{ $application->alamat }}</td>

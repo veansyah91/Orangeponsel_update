@@ -1,5 +1,6 @@
 <div>
     <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -19,11 +20,20 @@
                     
                     <div class="card-body">
                         <div class="row">
+                            @php
+                                $buttonStatus = $invoices->isNotEmpty() ? '' : ' disabled';
+                            @endphp
+
                             <div class="col-sm-6">
-                                <button class="btn btn-primary">Ajukan Nota</button>
+                                <a href="{{ url('/credit-partner/partner='. $partnerId .'/invoice-claim/to-pdf') }}" class="btn btn-primary{{$buttonStatus}}">Ajukan Nota</a>
+                            </div>
+
+                            <div class="col-sm-6 my-auto">
+                                <strong>Nomor Nota: </strong> Orange-BKS/{{ $invoiceNumber }}
                             </div>
                         </div>
 
+                        
                         <div class="row mt-2">
                             <div class="col-sm-12">
                                 <table class="table">
@@ -71,11 +81,59 @@
                 
                     <div class="card-body">
 
+                        @if ($creditPartnerInvoices->isNotEmpty())
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Nomor Nota</th>
+                                        <th class="text-center">Total</th>
+                                        <th class="text-center">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    @foreach ($creditPartnerInvoices as $creditPartnerInvoice)
+                                        <tr> 
+                                            @php
+                                                if ($creditPartnerInvoice->status === 'waiting') 
+                                                    $text_color = 'text-warning';
+                                                else 
+                                                    $text_color = 'text-success'
+                                                
+                                            @endphp
+                                            <td class="text-center">{{ $creditPartnerInvoice->nomor }}</td>
+                                            <td class="text-center">Rp. {{ number_format(CreditPartner::getTotalInvoice($creditPartnerInvoice->id),0,",",".") }}</td>
+                                            <td class="text-center {{ $text_color }}"><strong>{{ $creditPartnerInvoice->status }}</strong></td>
+                                            @if ($creditPartnerInvoice->status === 'waiting')
+                                                <td class="text-center">
+                                                    <div x-data="{ open: false }">
+                                                        <button class="btn btn-sm btn-success" @click="open = ! open" x-show="!open">Bayar</button>
+
+                                                        <div x-show="open">
+                                                            Apakah Anda Yakin?
+                                                            <button @click.outside="open = false" class="btn btn-success btn-sm" wire:click="updateStatus({{$creditPartnerInvoice->id}})">ya</button>
+                                                            <button @click.outside="open = false" class="btn btn-danger btn-sm">tidak</button>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                    
+                                </tbody>
+                            </table>
+                        @else
+                            <center>
+                                <i>Belum Ada Invoice</i>
+                            </center>
+                        @endif
                         
                     </div>
                     
                 </div>
             </div>
         </div>
+        
     </div>
 </div>

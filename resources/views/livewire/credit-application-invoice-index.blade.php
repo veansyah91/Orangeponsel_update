@@ -9,7 +9,7 @@
                 <div class="col-lg-10">
                     <div class="card">
                         <div class="card-header h3">
-                            Pengambilan Kredit (Belum Diklaim)
+                            Pengambilan Kredit (Belum Diajukan)
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -23,6 +23,7 @@
                                     <table class="table table-responsive table-bordered">
                                         <thead>
                                             <tr>
+                                                <th>Diinput Oleh</th>
                                                 <th>Nama Konsumen</th>
                                                 <th>No HP</th>
                                                 <th>Kode/Imei HP</th>
@@ -39,6 +40,7 @@
                                             @if ($creditInvoiceApplications -> isNotEmpty())
                                                 @foreach ($creditInvoiceApplications as $creditInvoiceApplication)
                                                     <tr>
+                                                        <td>{{ $creditInvoiceApplication->user_name }}</td>
                                                         <td>{{ $creditInvoiceApplication->nama }}</td>
                                                         <td>{{ $creditInvoiceApplication->no_hp }}</td>
                                                         <td>{{ Product::show($creditInvoiceApplication->product_id)->kode }}</td>
@@ -68,7 +70,7 @@
                                                 @endforeach
                                             @else
                                                 <tr>
-                                                    <td colspan="10" class="text-center">
+                                                    <td colspan="11" class="text-center">
                                                         <i>Belum Ada Pengambilan Unit Handphone</i>
                                                     </td>
                                                 </tr>

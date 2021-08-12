@@ -111,6 +111,8 @@
                                         $linkProposal = 'credit-partner/partner=' . $partner->id .'/proposal';
                                         $linkInvoice = 'credit-partner/partner=' . $partner->id .'/invoice';
                                         $linkInvoiceClaim = 'credit-partner/partner=' . $partner->id .'/invoice-claim';
+                                        $linkHistory= 'credit-partner/partner=' . $partner->id .'/detail';
+                                        $linkCreditPayment = 'credit-partner/partner=' . $partner->id .'/credit-payment';
                                     @endphp
                                     
                                     <div class="dropdown-menu" aria-labelledby="harianDropdownMenuLink">
@@ -124,7 +126,7 @@
                                             href="{{ route('credit-partner.proposal',['partner' => $partner->id]) }}"
                                         >
                                             Pengajuan Kredit
-                                        </a>                                   
+                                        </a>  
 
                                         @role('SUPER ADMIN|ADMIN|FRONT LINER|PROMOTOR')
                                             <a class="dropdown-item{{ request()->is($linkInvoice) ? ' active' : '' }}" 
@@ -134,6 +136,20 @@
                                             </a>
                                         @endrole
 
+                                        <a class="dropdown-item{{ request()->is($linkHistory) ? ' active' : '' }}" 
+                                            href="{{ route('credit-partner.history',['partner' => $partner->id]) }}"
+                                        >
+                                            Riwayat Pengajuan Kredit
+                                        </a>   
+                                        
+                                        <hr>
+
+                                        <a class="dropdown-item{{ request()->is($linkCreditPayment) ? ' active' : '' }}" 
+                                            href="{{ route('credit-partner.credit-payment',['partner' => $partner->id]) }}"
+                                        >
+                                            Bayar Angsuran
+                                        </a>   
+                                        
                                         @role('SUPER ADMIN')
                                             <hr>
                                                 <a class="dropdown-item{{ request()->is($linkInvoiceClaim) ? ' active' : '' }}" 

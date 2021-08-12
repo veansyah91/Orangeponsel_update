@@ -41,6 +41,7 @@ class CreditApplicationIndex extends Component
                             ->join('credit_customers','credit_customers.id','=','credit_applications.credit_customer_id')
                             ->join('outlets','outlets.id','=','credit_applications.outlet_id')
                             ->where('credit_applications.credit_partner_id', $this->partnerId)
+                            ->where('credit_applications.status', '=', 'pending')
                             ->where(function($query) {
                                 $query->where('credit_customers.nama', 'like', '%' . $this->searchName . '%')
                                     ->orWhere('credit_customers.no_ktp', 'like', '%' . $this->searchName . '%');
@@ -48,6 +49,8 @@ class CreditApplicationIndex extends Component
                             ->select('credit_applications.id','credit_applications.status','credit_applications.merk','credit_applications.tenor','credit_applications.angsuran','credit_applications.dp','credit_applications.outlet_id','credit_customers.nama','credit_customers.no_ktp','credit_customers.alamat','outlets.nama as nama_outlet','credit_applications.sales_name')
                             ->orderBy('status')
                             ->paginate($this->paginate);
+
+        
 
         return view('livewire.credit-application-index', [
             'applications' => $applications

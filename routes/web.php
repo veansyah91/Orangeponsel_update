@@ -50,7 +50,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/credit-partners','Admin\CreditPartnerController@index')->name('credit-partners.index');
     Route::get('/credit-partner/partner={partner}/customer','Admin\CreditPartnerController@customer')->name('credit-partner.customer');
     Route::get('/credit-partner/partner={partner}/proposal','Admin\CreditPartnerController@proposal')->name('credit-partner.proposal');
+    Route::get('/credit-partner/partner={partner}/history','Admin\CreditPartnerController@history')->name('credit-partner.history');
+    Route::get('/credit-partner/partner={partner}/credit-payment','Admin\CreditPartnerController@creditPayment')->name('credit-partner.credit-payment');
     Route::get('/credit-partner/partner={partner}/invoice','Admin\CreditPartnerController@invoice')->name('credit-partner.invoice');
     Route::get('/credit-partner/partner={partner}/invoice-claim','Admin\CreditPartnerController@invoiceClaim')->name('credit-partner.invoice-claim');
+
+    Route::get('/credit-partner/partner={partner}/invoice-claim/to-pdf','Admin\CreditPartnerController@invoiceClaimToPdf');
 });
 
