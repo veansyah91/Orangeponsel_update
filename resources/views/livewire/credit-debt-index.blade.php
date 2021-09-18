@@ -90,19 +90,19 @@
                                                 <div class="row justify-content-center">
 
                                                     @role('SALES')
-                                                        <div class="col-12 col-lg-4">
+                                                        <div class="col-12">
                                                             <button class="btn btn-dark btn-sm w-100" wire:click="pending({{ $d->id }})">
                                                                 tangguhkan
                                                             </button>
                                                         </div>
                                                     @endrole
 
-                                                    <div class="col-12 col-lg-4">
+                                                    <div class="col-12">
                                                         <button class="btn btn-success btn-sm w-100" wire:click="detail({{ $d->id }})">
                                                             detail
                                                         </button>
                                                     </div>
-                                                    
+
                                                 </div>
                                                 
                                             </td>

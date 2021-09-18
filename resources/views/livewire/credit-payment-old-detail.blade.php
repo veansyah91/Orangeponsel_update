@@ -1,12 +1,12 @@
 <div>
     <div class="row justify-content-center">
-        <div class="col-8">
+        <div class="col-lg-8 col-12">
             <div class="card">
                 <div class="card-header d-flex">
-                    <div class="col-6 h3">
+                    <div class="col-lg-6 col-12 h3">
                         Detail Pembayaran
                     </div>
-                    <div class="col-6 text-right">
+                    <div class="col-lg-6 col-12 text-right">
                         <button class="btn btn-success" wire:click="backToIndex">kembali</button>
                     </div>
                     
