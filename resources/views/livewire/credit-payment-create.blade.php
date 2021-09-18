@@ -1,6 +1,6 @@
 <div>
     <div class="row justify-content-center">
-        <div class="col-8">
+        <div class="col-lg-8 col-12">
             <div class="card">
                 <div class="card-header h3">
                     <div class="row justify-content-between">

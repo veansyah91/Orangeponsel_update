@@ -3,7 +3,7 @@
         <livewire:credit-payment-old-search :partnerId="$partner_id"/>
     @else
         <div class="row justify-content-center">
-            <div class="col-8">
+            <div class="col-12 col-lg-8">
                 <div class="card">
                     <div class="card-header h3">
                         <div class="row justify-content-between">

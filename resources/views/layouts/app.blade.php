@@ -106,7 +106,7 @@
                                 @endphp
 
                                 @role('SALES')
-                                
+
                                     @if ( User::getSalesDetail(Auth::user()['id'])['credit_partner_id'] ==  $partner->id)
                                         <li class="nav-item dropdown{{ request()->is($link) ? ' active' :'' }}">
                                             <a class="nav-link dropdown-toggle" href="#" id="harianDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -118,7 +118,7 @@
                                                 $linkProposal = 'credit-partner/partner=' . $partner->id .'/proposal';
                                                 $linkInvoice = 'credit-partner/partner=' . $partner->id .'/invoice';
                                                 $linkInvoiceClaim = 'credit-partner/partner=' . $partner->id .'/invoice-claim';
-                                                $linkHistory= 'credit-partner/partner=' . $partner->id .'/detail';
+                                                $linkHistory = 'credit-partner/partner=' . $partner->id .'/detail';
                                                 $linkCreditPayment = 'credit-partner/partner=' . $partner->id .'/credit-payment';
                                                 $linkProposalOld = 'credit-partner/partner=' . $partner->id .'/old-proposal';
                                                 $linkPaymentOld = 'credit-partner/partner=' . $partner->id .'/old-payment';

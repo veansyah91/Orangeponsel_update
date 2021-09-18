@@ -1,13 +1,13 @@
 <div>
     <div class="row justify-content-center">
-        <div class="col-8">
+        <div class="col-lg-8 col-12">
             <div class="card">
                 <div class="card-header">
                     <div class="row justify-content-between">
-                        <div class="col-6 h3">
+                        <div class="col-lg-6 col-12 h3">
                             Update Masa Tenggang
                         </div>
-                        <div class="col-6 text-right">
+                        <div class="col-lg-6 col-12 text-right">
                             <button class="btn btn-success" wire:click="back">
                                 kembali
                             </button>

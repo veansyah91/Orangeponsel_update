@@ -1,6 +1,6 @@
 <div>
     <div class="row justify-content-center mb-2">
-        <div class="col-lg-10">
+        <div class="col-lg-10 col-12">
             <div class="card">
                 <div class="card-header h3">
                     Pengambilan Barang Kredit
@@ -12,14 +12,14 @@
                         </div>
                     </div>
                     <div class="row justify-content-center">
-                        <div class="col-6">
+                        <div class="col-lg-6 col-12">
                             <form wire:submit.prevent="store()">
                                 <div class="form-group mt-4">
                                     <div class="row">
-                                        <div class="col-3 mt-2">
+                                        <div class="col-lg-3  col-12 mt-2">
                                             <strong>Tanggal</strong>
                                         </div>
-                                        <div class="col-9">
+                                        <div class="col-lg-9 col-12 ">
                                             <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" wire:model="tanggal">
                                         </div>
                                     </div>   
@@ -30,10 +30,10 @@
                                         <strong>Nama Konsumen</strong> 
                                     </label>
                                     <div class="row">
-                                        <div class="col-3">
-                                            <button class="btn btn-secondary" type="button" wire:click="showNameSearch()">Cari</button>
+                                        <div class="col-lg-3 col-12">
+                                            <button class="btn btn-secondary w-100" type="button" wire:click="showNameSearch()">Cari</button>
                                         </div>
-                                        <div class="col-9" style="display: block">
+                                        <div class="col-lg-9 col-12" style="display: block">
                                             <input type="text" class="form-control @error('creditCustomerName') is-invalid @enderror" id="tipe_handphone" wire:model="creditCustomerName" readonly required>
                                             <div class="list-group {{ $showNameSearch ? '' : 'd-none' }}" style="position: absolute; z-index: 1;">
                                                 <input type="text" class="form-control" placeholder="Masukkan Nama / No HP" wire:model="search" autocomplete="false">
@@ -52,10 +52,10 @@
                                         <strong>Tipe Handphone</strong> 
                                     </label>
                                     <div class="row">
-                                        <div class="col-3">
-                                            <button class="btn btn-secondary" type="button" wire:click="showTypeSearch()">Cari</button>
+                                        <div class="col-lg-3 col-12">
+                                            <button class="btn btn-secondary w-100" type="button" wire:click="showTypeSearch()">Cari</button>
                                         </div>
-                                        <div class="col-9" style="display: block">
+                                        <div class="col-lg-9 col-12" style="display: block">
                                             <input type="text" class="form-control @error('type') is-invalid @enderror" id="tipe_handphone" wire:model="type" readonly required>
                                             <div class="list-group {{ $showTypeSearch ? '' : 'd-none' }}" style="position: absolute; z-index: 1;">
                                                 <input type="text" class="form-control" placeholder="Imei/Kode" wire:model="searchType" autocomplete="false">
@@ -71,10 +71,10 @@
 
                                 <div class="form-group mt-4">
                                     <div class="row">
-                                        <div class="col-3 mt-2">
+                                        <div class="col-lg-3 col-12 mt-2">
                                             <strong>Harga</strong>
                                         </div>
-                                        <div class="col-9">
+                                        <div class="col-lg-9 col-12">
                                             <input type="number" class="form-control @error('harga') is-invalid @enderror" id="harga_handphone" wire:model="harga">
                                         </div>
                                     </div>   
@@ -82,10 +82,10 @@
 
                                 <div class="form-group mt-4">
                                     <div class="row">
-                                        <div class="col-3 mt-2">
+                                        <div class="col-lg-3 col-12 mt-2">
                                             <strong>Email</strong>
                                         </div>
-                                        <div class="col-9">
+                                        <div class="col-lg-9 col-12">
                                             <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" wire:model="email" placeholder="Masukkan Email">
                                         </div>
                                     </div>   
@@ -93,10 +93,10 @@
 
                                 <div class="form-group mt-4">
                                     <div class="row">
-                                        <div class="col-3 mt-2">
+                                        <div class="col-lg-3 col-12 mt-2">
                                             <strong>Password</strong>
                                         </div>
-                                        <div class="col-9">
+                                        <div class="col-lg-9 col-12">
                                             <input type="text" class="form-control @error('password') is-invalid @enderror" id="password" wire:model="password" placeholder="Masukkan Password">
                                         </div>
                                     </div>   
