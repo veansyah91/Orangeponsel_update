@@ -43,6 +43,7 @@
                                     @endif
                                 </tbody>
                             </table>
+                            {{ $data->links() }}
                         </center>
                         
                     </div>

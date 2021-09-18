@@ -3,10 +3,15 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 
 class CreditCollectDelay extends Component
 {
+    use WithPagination;
+    
+    protected $paginationTheme = 'bootstrap';
+    
     public $partnerId;
 
     public function mount($partnerId)
