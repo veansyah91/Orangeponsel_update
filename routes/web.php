@@ -1,16 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -56,5 +46,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/credit-partner/partner={partner}/invoice-claim','Admin\CreditPartnerController@invoiceClaim')->name('credit-partner.invoice-claim');
 
     Route::get('/credit-partner/partner={partner}/invoice-claim/to-pdf','Admin\CreditPartnerController@invoiceClaimToPdf');
+
+    Route::get('/credit-partner/partner={partner}/old-proposal','Admin\CreditApplicationOldController@index')->name('credit-partner.old-proposal');
+    Route::get('/credit-partner/partner={partner}/old-payment','Admin\CreditPaymentOldController@index')->name('credit-partner.old-payment');
+
+    Route::get('/credit-partner/partner={partner}/collect','Admin\CreditCollectController@index')->name('credit-partner.collect');
+    Route::get('/credit-partner/partner={partner}/delay-payment','Admin\CreditPaymentDelayController@index')->name('credit-partner.delay-payment');
+
 });
 

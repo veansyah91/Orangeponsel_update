@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Model\Product;
 use Livewire\Component;
+use App\Model\CreditPayment;
 use App\Model\CreditCustomer;
 use App\Model\CreditApplication;
 use App\Model\CreditApplicationInvoice;
@@ -26,11 +27,14 @@ class CreditApplicationDetail extends Component
 
         $product = Product::find($creditApplicationInvoice['product_id']);
 
+        $creditPayments = CreditPayment::where('credit_application_id', $this->credit_app_id)->get();
+
         return view('livewire.credit-application-detail', [
             'creditApplication' => $creditApplication,
             'creditCustomer' => $creditCustomer,
             'creditApplicationInvoice' => $creditApplicationInvoice,
-            'product' => $product
+            'product' => $product,
+            'creditPayments' => $creditPayments
         ]);
     }
 
@@ -41,5 +45,6 @@ class CreditApplicationDetail extends Component
 
     public function handleShowDetail($id)
     {
-        $this->credit_app_id = $id;    }
+        $this->credit_app_id = $id;    
+    }
 }

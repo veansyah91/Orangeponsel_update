@@ -29,6 +29,7 @@
                         wire:keydown.escape="resetListInput()"
 
                         id="validasi-kode" aria-describedby="umpan-balik-validasi-kode"
+                        autocomplete="off"
                     > 
                     
                     @error('productId')
@@ -68,7 +69,7 @@
                         class="form-control @error('tipe') is-invalid @enderror" 
                         placeholder="Tipe"
                         readonly
-                        id="validasi-tipe" aria-describedby="umpan-balik-validasi-tipe"
+                        id="validasi-tipe" aria-describedby="umpan-balik-validasi-tipe" 
                     >   
                 </div>
                 

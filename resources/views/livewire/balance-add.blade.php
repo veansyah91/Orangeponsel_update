@@ -28,6 +28,7 @@
                             wire:keydown="inputSearchSupplier()"
                             wire:keydown.escape="resetListInput()"
                             required
+                            autocomplete="false"
                         >
                         @error('supplier')
                             <span id="umpan-balik-validasi-supplier" class="invalid-feedback">Silakan isi pemasok dengan benar</span>
@@ -67,6 +68,7 @@
                             class="text-right form-control @error('jumlah') is-invalid @enderror" 
                             id="jumlah"
                             wire:model='jumlah'
+                            autocomplete="false"
                         >
                         @error('jumlah')
                             <span id="umpan-balik-validasi-supplier" class="invalid-feedback">Silakan isi pemasok dengan benar</span>
@@ -82,6 +84,7 @@
                             class="text-right form-control @error('keterangan') is-invalid @enderror" 
                             id="keterangan"
                             wire:model='keterangan'
+                            autocomplete="off"
                         >
                         @error('jumlah')
                             <span id="umpan-balik-validasi-supplier" class="invalid-feedback">Silakan isi pemasok dengan benar</span>

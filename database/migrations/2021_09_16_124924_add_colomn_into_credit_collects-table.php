@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColomnInCreditPaymentsTable extends Migration
+class AddColomnIntoCreditCollectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddColomnInCreditPaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::table('credit_payments', function (Blueprint $table) {
-            $table->bigInteger('sisa')->nullable();
+        Schema::table('credit_collects', function (Blueprint $table) {
+            $table->date('tanggal_penagihan')->nullable();
+            $table->string('collector')->nullable();
         });
     }
 
@@ -25,7 +26,7 @@ class AddColomnInCreditPaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('credit_payments', function (Blueprint $table) {
+        Schema::table('credit_collects', function (Blueprint $table) {
             //
         });
     }

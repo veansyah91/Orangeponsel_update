@@ -247,7 +247,58 @@
                             </div>
                         </div> 
                     @endif
-                                        
+                            
+                    <div class="row justify-content-center mt-4 border-top pt-3">
+                        <div class="col-12 col-lg-8">
+                            <h5>
+                                <strong>
+                                    Pembayaran Angsuran 
+                                    @if ($creditApplication['lunas'] == '1')
+                                        <span class="badge badge-primary">LUNAS</span>
+                                    @endif
+                                </strong>                                
+                            </h5>
+
+                            <table class="table table-responsive table-sm">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Nomor Nota</th>
+                                        <th class="text-center">Angsuran Ke-</th>
+                                        <th class="text-center">Jumlah Bayar</th>
+                                        <th class="text-center">Tanggal Bayar</th>
+                                        <th class="text-center">Jatuh Tempo</th>
+                                        <th class="text-center">Terlambat</th>
+                                        <th class="text-center">Outlet Pembayaran</th>
+                                        <th class="text-center">Collector</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if ($creditPayments->isNotEmpty())
+                                        @foreach ($creditPayments as $creditPayment)
+                                            <tr>
+                                                <td class="text-center">{{ $creditPayment->nomor_pembayaran }}</td>
+                                                <td class="text-center">{{ $creditPayment->angsuran_ke }}</td>
+                                                <td class="text-center">Rp. {{ number_format($creditPayment->jumlah,0,",",".") }}</td>
+                                                <td class="text-center">{{ $creditPayment->tanggal_bayar }}</td>
+                                                <td class="text-center">{{ $creditPayment->jatuh_tempo }}</td>
+                                                <td class="text-center">{{ $creditPayment->terlambat }} hari</td>
+                                                <td class="text-center">{{ $creditPayment->outlet }}</td>
+                                                <td class="text-center">{{ $creditPayment->sales_name }}</td>
+                                            </tr>
+                                        @endforeach                                        
+                                    @else
+                                        <tr>
+                                            <td class="text-center" colspan="7">
+                                                <i>
+                                                    Belum Melakukan Pembayaran
+                                                </i>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                </tbody>                                
+                            </table>
+                        </div>
+                    </div> 
                 </div>
             </div>
         </div>

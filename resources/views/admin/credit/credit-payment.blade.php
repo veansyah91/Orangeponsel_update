@@ -2,6 +2,6 @@
 
 @section('content')
 
-    <livewire:credit-payment :partnerId="$partner"/>
+    <livewire:credit-payment-index :partnerId="$partner"/>
 
 @endsection

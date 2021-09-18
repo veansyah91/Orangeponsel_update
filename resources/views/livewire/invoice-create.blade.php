@@ -29,6 +29,7 @@
                         wire:keydown="inputCustomer()"
                         wire:keydown.escape="resetInputList()"
                         id="customer" {{ $disable ? 'disabled' :'' }}
+                        autocomplete="off"
                     >
 
                     @error('customer')
@@ -81,6 +82,7 @@
                     id="validasi-kode" aria-describedby="umpan-balik-validasi-kode"
 
                     {{ $showProductInput ? 'disabled' : '' }}
+                    autocomplete="off"
                 >
 
                     @error('productId')

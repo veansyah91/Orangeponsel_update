@@ -29,7 +29,7 @@
                             </div>
 
                             <div class="col-sm-6 my-auto">
-                                <strong>Nomor Nota: </strong> Orange-BKS/{{ $invoiceNumber }}
+                                <strong>Nomor Nota: </strong> Orange-{{ $creditPartner['alias'] }}/{{ $invoiceNumber }}
                             </div>
                         </div>
 

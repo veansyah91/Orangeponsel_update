@@ -18,7 +18,7 @@ class CreateCreditPaymentsTable extends Migration
             $table->unsignedBigInteger('credit_application_id');
             $table->bigInteger('jumlah');
             $table->integer('bayar_ke');
-            $table->integer('nomor_pembayaran');
+            $table->integer('nomor_pembayaran')->nullable();
             $table->timestamps();
 
             $table->foreign('credit_application_id')->references('id')->on('credit_applications')->onUpdate('cascade')->onDelete('cascade');

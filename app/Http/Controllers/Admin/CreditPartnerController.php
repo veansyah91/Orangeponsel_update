@@ -47,9 +47,11 @@ class CreditPartnerController extends Controller
                         ->select('credit_application_invoices.created_at','credit_application_invoices.id','credit_application_invoices.product_id','credit_applications.outlet_id','credit_customers.nama','credit_customers.no_hp','credit_applications.merk')
                         ->get();  
 
-        $lastInvoice = CreditPartnerInvoice::get()->last();
+        $lastInvoice = CreditPartnerInvoice::where('credit_partner_id', $partner)->get()->last();
 
         $lastInvoice = $lastInvoice ? $lastInvoice->nomor + 1 : 1;
+
+        $creditPartner = CreditPartner::find($partner);
 
         // create new invoice 
         $creditPartnerInvoice = CreditPartnerInvoice::create([
@@ -73,7 +75,11 @@ class CreditPartnerController extends Controller
             ]);
         }
 
-        $pdf = PDF::loadview('admin.credit.invoice-claim-pdf',['invoices' => $invoices]);
+        $pdf = PDF::loadview('admin.credit.invoice-claim-pdf',[
+                                                                'invoices' => $invoices,
+                                                                'creditPartner' => $creditPartner,
+                                                                'lastInvoice' => $lastInvoice,
+                                                                ]);
 	    return $pdf->download('invoice-claim');
     }
 

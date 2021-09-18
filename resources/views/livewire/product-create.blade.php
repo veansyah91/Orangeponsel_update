@@ -2,8 +2,6 @@
     <div class="card-body">
             <button class="btn btn-sm btn-success" wire:click="showProduct()">Ke Halaman Produk</button>
             <button class="btn btn-sm btn-secondary float-right" wire:click="resetAllInput()">Bersihkan Kolom Input</button>
-        
-        
     </div>
 
     @if (session()->has('success'))
@@ -28,6 +26,7 @@
                         wire:click="showSearchSupplier()"
                         wire:keydown="inputSearchSupplier()"
                         wire:keydown.escape="resetListInput()"
+                        autocomplete="off"
                     >
                     @error('supplierId')
                         <span id="umpan-balik-validasi-supplier" class="invalid-feedback">Silakan isi pemasok dengan benar</span>
@@ -69,6 +68,7 @@
                         wire:click="showSearchCategory()"
                         wire:keydown="inputSearchCategory()"
                         wire:keydown.escape="resetListInput()"
+                        autocomplete="off"
                     >
                     @error('categoryId')
                         <span id="umpan-balik-validasi-category" class="invalid-feedback">Silakan isi kategori dengan benar</span>
@@ -106,6 +106,7 @@
                         wire:click="showSearchBrand()"
                         wire:keydown="inputSearchBrand()"
                         wire:keydown.escape="resetListInput()"
+                        autocomplete="off"
                     >
                     @error('brandId')
                         <span id="umpan-balik-validasi-brand" class="invalid-feedback">Silakan isi kategori dengan benar</span>

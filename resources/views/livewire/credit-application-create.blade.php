@@ -32,7 +32,7 @@
                             <div class="col-lg-9" style="display: block">
                                 <input type="text" class="form-control @error('creditCustomerName') is-invalid @enderror" id="tipe_handphone" wire:model="creditCustomerName" readonly>
                                 <div class="list-group {{ $showNameSearch ? '' : 'd-none' }}" style="position: absolute; z-index: 1;">
-                                    <input type="text" class="form-control" placeholder="Masukkan NIK" wire:model="searchName">
+                                    <input type="text" class="form-control" placeholder="Masukkan NIK" wire:model="searchName" autocomplete="false">
                                     @foreach ($creditCustomers as $customer)
                                         <button type="button" class="list-group-item list-group-item-action" wire:click="selectCustomer({{ $customer->id }},'{{ $customer->nama }}')">
                                             ({{ $customer->no_ktp }}) {{ $customer->nama }}
@@ -54,7 +54,7 @@
                             <div class="col-lg-9" style="display: block">
                                 <input type="text" class="form-control @error('creditCustomerName') is-invalid @enderror" id="tipe_handphone" wire:model="merk">
                                 <div class="list-group {{ $showTypeSearch ? '' : 'd-none' }}" style="position: absolute; z-index: 1;">
-                                    <input type="text" class="form-control" placeholder="Masukkan Tipe HP" wire:model="searchType">
+                                    <input type="text" class="form-control" placeholder="Masukkan Tipe HP" wire:model="searchType" autocomplete="false">
                                     @foreach ($products as $product)
                                         <button type="button" class="list-group-item list-group-item-action" wire:click="selectProduct('{{ $product->tipe }}')">{{ $product->tipe }}</button>
                                     @endforeach

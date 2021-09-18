@@ -45,8 +45,6 @@
         </tr>
     </table>
 
-    
-
     <center style="margin-top: 30px">
         <h3>INVOICE</h3>        
     </center>
@@ -55,12 +53,12 @@
         <tr>
             <td>
                 <div style="font-size: 12px">
-                    Nomor: OP-BKS/1
+                    Nomor: Orange Ponsel-{{ $creditPartner['alias'] }}/{{ $lastInvoice }}
                 </div>
             </td>
             <td>
                 <div style="font-size: 12px;text-align:right">
-                    Tanggal: 12-8-2021
+                    Tanggal: {{ Date('Y-m-d') }}
                 </div>
             </td>
         </tr>

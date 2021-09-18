@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Model\CreditPartner;
 use Illuminate\Support\Facades\DB;
 use App\Model\CreditPartnerInvoice;
 use App\Model\CreditApplicationInvoice;
@@ -35,16 +36,19 @@ class InvoiceClaimIndex extends Component
                         ->select('credit_application_invoices.created_at','credit_application_invoices.id','credit_application_invoices.product_id','credit_applications.outlet_id','credit_customers.nama','credit_customers.no_hp','credit_applications.merk','credit_applications.email','credit_applications.password')
                         ->get();  
 
-        $creditPartnerInvoices = CreditPartnerInvoice::all();
+        $creditPartnerInvoices = CreditPartnerInvoice::where('credit_partner_id', $this->partnerId)->get();
 
-        $lastInvoice = CreditPartnerInvoice::get()->last();
+        $lastInvoice = CreditPartnerInvoice::where('credit_partner_id', $this->partnerId)->get()->last();
 
         $lastInvoice = $lastInvoice ? $lastInvoice->nomor + 1 : 1;
+
+        $creditPartner = CreditPartner::find($this->partnerId);
                         
         return view('livewire.invoice-claim-index', [
             "invoices" => $invoices,
             "invoiceNumber" => $lastInvoice,
-            "creditPartnerInvoices" => $creditPartnerInvoices 
+            "creditPartnerInvoices" => $creditPartnerInvoices,
+            "creditPartner" => $creditPartner,
         ]);
     }
 

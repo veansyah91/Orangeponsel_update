@@ -5,13 +5,13 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="nomorId">Nomor Hp/Token</label>
-                        <input type="text" class="form-control" id="nomorId" placeholder="Nomor Hp/Token" wire:model="nomorId" required>
+                        <input type="text" class="form-control" id="nomorId" placeholder="Nomor Hp/Token" wire:model="nomorId" required autocomplete="false">
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label for="keterangan">Keterangan</label>
-                        <input type="text" class="form-control" id="keterangan" placeholder="Keterangan" wire:model="keterangan" required>
+                        <input type="text" class="form-control" id="keterangan" placeholder="Keterangan" wire:model="keterangan" required autocomplete="false">
                     </div>
                 </div>
             </div>
@@ -20,7 +20,7 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="harga_modal">Harga Modal</label>
-                        <input type="number" class="form-control text-right" id="harga_modal" wire:model="modal">
+                        <input type="number" class="form-control text-right" id="harga_modal" wire:model="modal" autocomplete="false">
                     </div>
                 </div>
                 <div class="col">

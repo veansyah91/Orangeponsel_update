@@ -25,7 +25,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm fixed-top" style="background-color: #ECD47A">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     Orange Ponsel
@@ -101,66 +101,203 @@
                             @endrole
 
                             @foreach (CreditPartner::getPartner() as $partner)
-                                <li class="nav-item dropdown{{ request()->is('credit-partner/*') ? ' active' :'' }}">
-                                    <a class="nav-link dropdown-toggle" href="#" id="harianDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {{ $partner->alias ? $partner->alias : $partner->nama_partner }}
-                                    </a>
+                                @php
+                                    $link = 'credit-partner/partner=' . $partner->id .'/*'
+                                @endphp
 
-                                    @php
-                                        $linkCustomer = 'credit-partner/partner=' . $partner->id .'/customer';
-                                        $linkProposal = 'credit-partner/partner=' . $partner->id .'/proposal';
-                                        $linkInvoice = 'credit-partner/partner=' . $partner->id .'/invoice';
-                                        $linkInvoiceClaim = 'credit-partner/partner=' . $partner->id .'/invoice-claim';
-                                        $linkHistory= 'credit-partner/partner=' . $partner->id .'/detail';
-                                        $linkCreditPayment = 'credit-partner/partner=' . $partner->id .'/credit-payment';
-                                    @endphp
-                                    
-                                    <div class="dropdown-menu" aria-labelledby="harianDropdownMenuLink">
-                                        <a class="dropdown-item{{ request()->is($linkCustomer) ? ' active' : '' }}" 
-                                            href="{{ route('credit-partner.customer',['partner' => $partner->id]) }}"
-                                        >
-                                            Pelanggan Kredit
-                                        </a>           
-
-                                        <a class="dropdown-item{{ request()->is($linkProposal) ? ' active' : '' }}" 
-                                            href="{{ route('credit-partner.proposal',['partner' => $partner->id]) }}"
-                                        >
-                                            Pengajuan Kredit
-                                        </a>  
-
-                                        @role('SUPER ADMIN|ADMIN|FRONT LINER|PROMOTOR')
-                                            <a class="dropdown-item{{ request()->is($linkInvoice) ? ' active' : '' }}" 
-                                                href="{{ route('credit-partner.invoice', ['partner' => $partner->id]) }}"
-                                            >
-                                                Pengambilan Barang
+                                @role('SALES')
+                                
+                                    @if ( User::getSalesDetail(Auth::user()['id'])['credit_partner_id'] ==  $partner->id)
+                                        <li class="nav-item dropdown{{ request()->is($link) ? ' active' :'' }}">
+                                            <a class="nav-link dropdown-toggle" href="#" id="harianDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                {{ $partner->alias ? $partner->alias : $partner->nama_partner }}
                                             </a>
-                                        @endrole
 
-                                        <a class="dropdown-item{{ request()->is($linkHistory) ? ' active' : '' }}" 
-                                            href="{{ route('credit-partner.history',['partner' => $partner->id]) }}"
-                                        >
-                                            Riwayat Pengajuan Kredit
-                                        </a>   
-                                        
-                                        <hr>
+                                            @php
+                                                $linkCustomer = 'credit-partner/partner=' . $partner->id .'/customer';
+                                                $linkProposal = 'credit-partner/partner=' . $partner->id .'/proposal';
+                                                $linkInvoice = 'credit-partner/partner=' . $partner->id .'/invoice';
+                                                $linkInvoiceClaim = 'credit-partner/partner=' . $partner->id .'/invoice-claim';
+                                                $linkHistory= 'credit-partner/partner=' . $partner->id .'/detail';
+                                                $linkCreditPayment = 'credit-partner/partner=' . $partner->id .'/credit-payment';
+                                                $linkProposalOld = 'credit-partner/partner=' . $partner->id .'/old-proposal';
+                                                $linkPaymentOld = 'credit-partner/partner=' . $partner->id .'/old-payment';
+                                                $linkCollect = 'credit-partner/partner=' . $partner->id .'/collect';
+                                                $linkDelayPayment = 'credit-partner/partner=' . $partner->id .'/delay-payment';
 
-                                        <a class="dropdown-item{{ request()->is($linkCreditPayment) ? ' active' : '' }}" 
-                                            href="{{ route('credit-partner.credit-payment',['partner' => $partner->id]) }}"
-                                        >
-                                            Bayar Angsuran
-                                        </a>   
-                                        
-                                        @role('SUPER ADMIN')
-                                            <hr>
-                                                <a class="dropdown-item{{ request()->is($linkInvoiceClaim) ? ' active' : '' }}" 
-                                                    href="{{ route('credit-partner.invoice-claim', ['partner' => $partner->id]) }}"
+                                            @endphp
+                                            
+                                            <div class="dropdown-menu" aria-labelledby="harianDropdownMenuLink">
+                                                <a class="dropdown-item{{ request()->is($linkCustomer) ? ' active' : '' }}" 
+                                                    href="{{ route('credit-partner.customer',['partner' => $partner->id]) }}"
                                                 >
-                                                    Pengajuan Nota
+                                                    Pelanggan Kredit
+                                                </a>           
+
+                                                <a class="dropdown-item{{ request()->is($linkProposal) ? ' active' : '' }}" 
+                                                    href="{{ route('credit-partner.proposal',['partner' => $partner->id]) }}"
+                                                >
+                                                    Pengajuan Kredit
+                                                </a>  
+
+                                                @role('SUPER ADMIN|ADMIN|FRONT LINER|PROMOTOR')
+                                                    <a class="dropdown-item{{ request()->is($linkInvoice) ? ' active' : '' }}" 
+                                                        href="{{ route('credit-partner.invoice', ['partner' => $partner->id]) }}"
+                                                    >
+                                                        Pengambilan Barang
+                                                    </a>
+                                                @endrole
+
+                                                <a class="dropdown-item{{ request()->is($linkHistory) ? ' active' : '' }}" 
+                                                    href="{{ route('credit-partner.history',['partner' => $partner->id]) }}"
+                                                >
+                                                    Riwayat Pengajuan Kredit
+                                                </a>   
+                                                
+                                                <hr>
+
+                                                <a class="dropdown-item{{ request()->is($linkCreditPayment) ? ' active' : '' }}" 
+                                                    href="{{ route('credit-partner.credit-payment',['partner' => $partner->id]) }}"
+                                                >
+                                                    Bayar Angsuran
+                                                </a>   
+
+                                                <hr>
+
+                                                <a class="dropdown-item{{ request()->is($linkProposalOld) ? ' active' : '' }}" 
+                                                    href="{{ route('credit-partner.old-proposal',['partner' => $partner->id]) }}"
+                                                >
+                                                    Pengajuan Kredit Lama
                                                 </a>
+                                                
+                                                <a class="dropdown-item{{ request()->is($linkPaymentOld) ? ' active' : '' }}" 
+                                                    href="{{ route('credit-partner.old-payment',['partner' => $partner->id]) }}"
+                                                >
+                                                    Pembayaran Agsuran Kredit Lama
+                                                </a>
+
+                                                <hr>
+
+                                                <a class="dropdown-item{{ request()->is($linkCollect) ? ' active' : '' }}" 
+                                                    href="{{ route('credit-partner.collect',['partner' => $partner->id]) }}"
+                                                >
+                                                    Penagihan Kredit
+                                                </a>
+
+                                                <a class="dropdown-item{{ request()->is($linkDelayPayment) ? ' active' : '' }}" 
+                                                    href="{{ route('credit-partner.delay-payment',['partner' => $partner->id]) }}"
+                                                >
+                                                    Riwayat Penagihan Kredt
+                                                </a>
+                                                
+                                                @role('SUPER ADMIN')
+                                                    <hr>
+                                                        <a class="dropdown-item{{ request()->is($linkInvoiceClaim) ? ' active' : '' }}" 
+                                                            href="{{ route('credit-partner.invoice-claim', ['partner' => $partner->id]) }}"
+                                                        >
+                                                            Pengajuan Nota
+                                                        </a>
+                                                    <hr>
+                                                @endrole
+                                            </div>
+                                        </li>
+                                    @endif
+                                    
+                                @else
+                                    <li class="nav-item dropdown{{ request()->is($link) ? ' active' :'' }}">
+                                        <a class="nav-link dropdown-toggle" href="#" id="harianDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{ $partner->alias ? $partner->alias : $partner->nama_partner }}
+                                        </a>
+
+                                        @php
+                                            $linkCustomer = 'credit-partner/partner=' . $partner->id .'/customer';
+                                            $linkProposal = 'credit-partner/partner=' . $partner->id .'/proposal';
+                                            $linkInvoice = 'credit-partner/partner=' . $partner->id .'/invoice';
+                                            $linkInvoiceClaim = 'credit-partner/partner=' . $partner->id .'/invoice-claim';
+                                            $linkHistory= 'credit-partner/partner=' . $partner->id .'/detail';
+                                            $linkCreditPayment = 'credit-partner/partner=' . $partner->id .'/credit-payment';
+                                            $linkProposalOld = 'credit-partner/partner=' . $partner->id .'/old-proposal';
+                                            $linkPaymentOld = 'credit-partner/partner=' . $partner->id .'/old-payment';
+                                            $linkCollect = 'credit-partner/partner=' . $partner->id .'/collect';
+                                            $linkDelayPayment = 'credit-partner/partner=' . $partner->id .'/delay-payment';
+
+                                        @endphp
+                                        
+                                        <div class="dropdown-menu" aria-labelledby="harianDropdownMenuLink">
+                                            <a class="dropdown-item{{ request()->is($linkCustomer) ? ' active' : '' }}" 
+                                                href="{{ route('credit-partner.customer',['partner' => $partner->id]) }}"
+                                            >
+                                                Pelanggan Kredit
+                                            </a>           
+
+                                            <a class="dropdown-item{{ request()->is($linkProposal) ? ' active' : '' }}" 
+                                                href="{{ route('credit-partner.proposal',['partner' => $partner->id]) }}"
+                                            >
+                                                Pengajuan Kredit
+                                            </a>  
+
+                                            @role('SUPER ADMIN|ADMIN|FRONT LINER|PROMOTOR')
+                                                <a class="dropdown-item{{ request()->is($linkInvoice) ? ' active' : '' }}" 
+                                                    href="{{ route('credit-partner.invoice', ['partner' => $partner->id]) }}"
+                                                >
+                                                    Pengambilan Barang
+                                                </a>
+                                            @endrole
+
+                                            <a class="dropdown-item{{ request()->is($linkHistory) ? ' active' : '' }}" 
+                                                href="{{ route('credit-partner.history',['partner' => $partner->id]) }}"
+                                            >
+                                                Riwayat Pengajuan Kredit
+                                            </a>   
+                                            
                                             <hr>
-                                        @endrole
-                                    </div>
-                                </li>
+
+                                            <a class="dropdown-item{{ request()->is($linkCreditPayment) ? ' active' : '' }}" 
+                                                href="{{ route('credit-partner.credit-payment',['partner' => $partner->id]) }}"
+                                            >
+                                                Bayar Angsuran
+                                            </a>   
+
+                                            <hr>
+
+                                            <a class="dropdown-item{{ request()->is($linkProposalOld) ? ' active' : '' }}" 
+                                                href="{{ route('credit-partner.old-proposal',['partner' => $partner->id]) }}"
+                                            >
+                                                Pengajuan Kredit Lama
+                                            </a>
+                                            
+                                            <a class="dropdown-item{{ request()->is($linkPaymentOld) ? ' active' : '' }}" 
+                                                href="{{ route('credit-partner.old-payment',['partner' => $partner->id]) }}"
+                                            >
+                                                Pembayaran Agsuran Kredit Lama
+                                            </a>
+
+                                            <hr>
+
+                                            <a class="dropdown-item{{ request()->is($linkCollect) ? ' active' : '' }}" 
+                                                href="{{ route('credit-partner.collect',['partner' => $partner->id]) }}"
+                                            >
+                                                Penagihan Kredit
+                                            </a>
+
+                                            <a class="dropdown-item{{ request()->is($linkDelayPayment) ? ' active' : '' }}" 
+                                                href="{{ route('credit-partner.delay-payment',['partner' => $partner->id]) }}"
+                                            >
+                                                Riwayat Penagihan Kredt
+                                            </a>
+                                            
+                                            @role('SUPER ADMIN')
+                                                <hr>
+                                                    <a class="dropdown-item{{ request()->is($linkInvoiceClaim) ? ' active' : '' }}" 
+                                                        href="{{ route('credit-partner.invoice-claim', ['partner' => $partner->id]) }}"
+                                                    >
+                                                        Pengajuan Nota
+                                                    </a>
+                                                <hr>
+                                            @endrole
+                                        </div>
+                                    </li>
+                                @endrole
                             @endforeach
                                                         
                         </ul>

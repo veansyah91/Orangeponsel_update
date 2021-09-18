@@ -36,7 +36,7 @@
                                         <div class="col-9" style="display: block">
                                             <input type="text" class="form-control @error('creditCustomerName') is-invalid @enderror" id="tipe_handphone" wire:model="creditCustomerName" readonly required>
                                             <div class="list-group {{ $showNameSearch ? '' : 'd-none' }}" style="position: absolute; z-index: 1;">
-                                                <input type="text" class="form-control" placeholder="Masukkan Nama / No HP" wire:model="search">
+                                                <input type="text" class="form-control" placeholder="Masukkan Nama / No HP" wire:model="search" autocomplete="false">
                                                 @foreach ($creditCustomers as $customer)
                                                     <button type="button" class="list-group-item list-group-item-action" wire:click="selectCustomer({{ $customer->id }},'{{ $customer->nama }}')">
                                                         {{ $customer->nama }} / {{ $customer->no_hp }}
@@ -58,7 +58,7 @@
                                         <div class="col-9" style="display: block">
                                             <input type="text" class="form-control @error('type') is-invalid @enderror" id="tipe_handphone" wire:model="type" readonly required>
                                             <div class="list-group {{ $showTypeSearch ? '' : 'd-none' }}" style="position: absolute; z-index: 1;">
-                                                <input type="text" class="form-control" placeholder="Imei/Kode" wire:model="searchType">
+                                                <input type="text" class="form-control" placeholder="Imei/Kode" wire:model="searchType" autocomplete="false">
                                                 @foreach ($products as $product)
                                                     <button type="button" class="list-group-item list-group-item-action" wire:click="selectType({{ $product->id }},'{{ $product->tipe }}')">
                                                         {{ $product->tipe }} / {{ $product->kode }}

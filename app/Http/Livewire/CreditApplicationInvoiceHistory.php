@@ -38,7 +38,7 @@ class CreditApplicationInvoiceHistory extends Component
                             $query->where('credit_customers.nama', 'like', '%' . $this->searchName . '%')
                                 ->orWhere('credit_customers.no_ktp', 'like', '%' . $this->searchName . '%');
                         })
-                        ->select('credit_applications.id','credit_applications.status','credit_applications.merk','credit_applications.tenor','credit_applications.angsuran','credit_applications.dp','credit_applications.outlet_id','credit_customers.nama','credit_customers.no_ktp','credit_customers.no_hp','outlets.nama as nama_outlet','credit_applications.sales_name')
+                        ->select('credit_applications.id','credit_applications.status','credit_applications.merk','credit_applications.tenor','credit_applications.angsuran','credit_applications.dp','credit_applications.outlet_id','credit_customers.nama','credit_customers.no_ktp','credit_customers.no_hp','outlets.nama as nama_outlet','credit_applications.sales_name','credit_applications.lunas')
                         ->orderBy('credit_applications.id','desc')
                         ->paginate(10);
 

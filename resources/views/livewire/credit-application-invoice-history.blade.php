@@ -43,7 +43,7 @@
                                         <tbody>
                                             @if ($histories->isNotEmpty())
                                                 @foreach ($histories as $history)
-                                                    <tr>
+                                                    <tr @if ($history->lunas == '1') class="table-primary" @endif>
                                                         <td class="text-center">{{ $history->sales_name }}</td>
                                                         @php
                                                             $colorStatus = '';
@@ -95,17 +95,6 @@
                                         </tbody>
                                     </table>
                                     {{ $histories->links() }}
-
-                                    @php
-                                        
-                                        $days = 1001;
-
-                                        $start_date = new DateTime();
-                                        $end_date = (new $start_date)->add(new DateInterval("P{$days}D") );
-                                        $dd = date_diff($start_date,$end_date);
-
-                                    @endphp
-                                    Selisih: {{ $dd->y." years ".$dd->m." months ".$dd->d." days" }}
                                 </div>
                             </div>                            
                         </div>

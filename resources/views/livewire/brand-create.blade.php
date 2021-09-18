@@ -10,6 +10,7 @@
                         placeholder="Nama Brand"
                         autofocus
                         id="validasi-nama" aria-describedby="umpan-balik-validasi-nama"
+                        autocomplete="false"
                     >
                     @error('nama')
                         <span id="umpan-balik-validasi-nama" class="invalid-feedback">Silakan isi Nama Brand</span>

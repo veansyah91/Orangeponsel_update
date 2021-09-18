@@ -40,6 +40,7 @@ class CreditApplicationInvoiceIndex extends Component
                         ->join('credit_applications','credit_applications.id','=','credit_application_invoices.credit_application_id')
                         ->join('credit_customers','credit_customers.id','=','credit_applications.credit_customer_id')
                         ->where('credit_application_invoices.status','=','waiting')
+                        ->where('credit_applications.credit_partner_id', $this->partnerId)
                         ->select('credit_application_invoices.id','credit_application_invoices.user_name','credit_application_invoices.product_id','credit_applications.outlet_id','credit_customers.nama','credit_customers.no_hp','credit_applications.merk','credit_applications.email','credit_applications.password')
                         ->get();       
 

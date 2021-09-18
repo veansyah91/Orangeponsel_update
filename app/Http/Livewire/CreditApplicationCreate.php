@@ -111,7 +111,8 @@ class CreditApplicationCreate extends Component
             'status' => $this->status,
             'credit_partner_id' => $this->partnerId,
             'outlet_id' => $this->outlet,
-            'total' => $this->total
+            'total' => $this->total,
+            'lunas' => '0'
         ]);
 
         $this->emit('hasStored');
