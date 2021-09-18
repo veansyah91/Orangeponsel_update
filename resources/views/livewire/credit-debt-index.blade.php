@@ -88,6 +88,7 @@
                                             <td class="text-center">{{ $d->terlambat }} Hari</td>
                                             <td class="text-center">
                                                 <div class="row justify-content-center">
+
                                                     @role('SALES')
                                                         <div class="col-12 col-lg-4">
                                                             <button class="btn btn-dark btn-sm w-100" wire:click="pending({{ $d->id }})">
@@ -101,6 +102,7 @@
                                                             detail
                                                         </button>
                                                     </div>
+                                                    
                                                 </div>
                                                 
                                             </td>

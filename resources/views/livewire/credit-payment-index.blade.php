@@ -18,10 +18,18 @@
                         <div class="card-body">
                             <div class="row justify-content-between">
 
-                                <div class="col-6">
-                                    <button class="btn btn-primary" wire:click="createPaymentButton()">
-                                        Bayar Angsuran
-                                    </button>
+                                <div class="col-12 col-lg-6">
+                                    <div class="row justify-content-between">
+                                        <div class="col-12 col-lg-6">
+                                            <button class="btn btn-primary w-100" wire:click="createPaymentButton()">
+                                                Bayar Angsuran
+                                            </button>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <small class="text-danger text-center"><i>menu ini untuk pengambilan unit diatas tanggal 18 september 2021</i> </small>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
 
                                 @if ($status > 0)
