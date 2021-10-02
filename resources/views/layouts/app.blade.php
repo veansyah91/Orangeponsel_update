@@ -68,14 +68,15 @@
                                     </div>
                                 </li>
 
-                                <li class="nav-item dropdown{{ request()->is('stok/*') ? ' active' : '' }}">
+                                <li class="nav-item dropdown{{ request()->is('stock/*') ? ' active' : '' }}">
                                     <a class="nav-link dropdown-toggle" href="#" id="masterDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Stok
                                     </a>
                                     
                                     <div class="dropdown-menu" aria-labelledby="masterDropdownMenuLink">
-                                        <a class="dropdown-item{{ request()->is('stok/item') ? ' active' : '' }}" href="{{ route('stok.index') }}">Stok Barang</a>
-                                        <a class="dropdown-item{{ request()->is('stok/balance') ? ' active' : '' }}" href="{{ route('stok.balance') }}">Stok Saldo</a>
+                                        <a class="dropdown-item{{ request()->is('stock/item-entry') ? ' active' : '' }}" href="{{ route('stock.item-entry') }}">Barang Masuk</a>
+                                        <a class="dropdown-item{{ request()->is('stock/item') ? ' active' : '' }}" href="{{ route('stock.index') }}">Stok Barang</a>
+                                        <a class="dropdown-item{{ request()->is('stock/balance') ? ' active' : '' }}" href="{{ route('stock.balance') }}">Stok Saldo</a>
                                     </div>
                                 </li>
 

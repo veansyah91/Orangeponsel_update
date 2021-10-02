@@ -75,6 +75,7 @@ class CreditPaymentOldCreate extends Component
         $this->validate([
             'creditCustomerName' => 'required',
             'creditCustomerPhone' => 'required',
+            'nomor_pembayaran' => 'numeric',
             'tipeHp' => 'required',
             'angsuran_ke' => 'required',
             'jumlah' => 'required',

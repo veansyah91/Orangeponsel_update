@@ -32,8 +32,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/daily/balance', 'Admin\InvoiceController@balance')->name('daily.balance');
     Route::get('/daily/hutang', 'Admin\DebtController@index')->name('daily.debt');
     
-    Route::get('/stok/item', 'Admin\StockController@index')->name('stok.index');
-    Route::get('/stok/balance', 'Admin\StockController@balance')->name('stok.balance');
+    Route::get('/stock/item-entry', 'Admin\ItemEntryController@index')->name('stock.item-entry');
+    Route::get('/stock/item', 'Admin\StockController@index')->name('stock.index');
+    Route::get('/stock/balance', 'Admin\StockController@balance')->name('stock.balance');
 
     Route::get('/outlets-cashflow', 'Admin\StockController@index')->name('outlets-cashflow.index');
 

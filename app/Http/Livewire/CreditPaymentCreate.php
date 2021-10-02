@@ -101,6 +101,7 @@ class CreditPaymentCreate extends Component
 
         $this->validate([
             'creditCustomerName' => 'required',
+            'nomor_pembayaran' => 'numeric',
             'jumlah' => 'required|numeric',
             'tanggal' => 'required',
         ]);

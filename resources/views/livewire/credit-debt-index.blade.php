@@ -61,15 +61,14 @@
                         </div>
 
                         <div class="card-body">
-                            <table class="table table-sm">
+                            <table class="table table-sm teble-responsive">
                                 <thead>
                                     <tr>
                                         <th class="text-center">Nomor HP</th>
                                         <th class="text-center">Nama</th>
                                         <th class="text-center">Terlambat</th>
                                         <th class="text-center"></th>
-                                    </tr>
-                                    
+                                    </tr>                                    
                                 </thead>
                                 <tbody>
                                 @if ($data->isNotEmpty())

@@ -54,7 +54,7 @@
                                     <strong>Nomor Nota</strong> 
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control @error('nomor_pembayaran') is-invalid @enderror" id="nomor_pembayaran" wire:model="nomor_pembayaran" name="nomor_pembayaran">
+                                    <input type="number" class="form-control @error('nomor_pembayaran') is-invalid @enderror" id="nomor_pembayaran" wire:model="nomor_pembayaran" name="nomor_pembayaran">
                                 </div>
                             </div>
                             <div class="form-group row">
