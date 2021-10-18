@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Stock extends Model
 {
-    protected $fillable = ['jumlah','outlet_id','product_id','created_at','updated_at'];
+    protected $fillable = ['jumlah','outlet_id','product_id','created_at','updated_at', 'item_entry_id'];
 
     public function outlet(){
         return $this->belongsTo('App\Model\Outlet'); 
@@ -14,6 +14,10 @@ class Stock extends Model
 
     public function product(){
         return $this->belongsTo('App\Model\Product'); 
+    }
+
+    public function ItemEntry(){
+        return $this->belongsTo('App\Model\ItemEntry'); 
     }
 
     static function checkStock($product, $outlet)

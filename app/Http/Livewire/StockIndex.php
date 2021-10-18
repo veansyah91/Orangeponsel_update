@@ -53,7 +53,7 @@ class StockIndex extends Component
                                                     ->join('products','products.id','=','stocks.product_id')
                                                     ->where('products.tipe','like', '%' . $this->search . '%')
                                                     ->orWhere('products.kode','like', '%' . $this->search . '%')
-                                                    ->select('stocks.id','stocks.updated_at','stocks.jumlah','outlets.nama as nama_outlet','products.tipe', 'products.kode','products.category_id','stocks.outlet_id')
+                                                    ->select('stocks.id','stocks.updated_at','stocks.jumlah','outlets.nama as nama_outlet','products.tipe', 'products.kode','products.category_id','stocks.outlet_id','stocks.item_entry_id')
                                                     ->orderByDesc('stocks.jumlah','products.kode')
                                                     ->paginate($this->paginate)  ;
 

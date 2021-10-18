@@ -33,6 +33,7 @@
                                             <tr class="text-center">
                                                 <th>Nomor Nota</th>
                                                 <th>Tanggal Masuk</th>
+                                                <th>Jumlah Item</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -41,6 +42,7 @@
                                                     <tr class="text-center">
                                                         <td>{{ $itemEntry->nomor_nota }}</td>
                                                         <td>{{ $itemEntry->tanggal_masuk }}</td>
+                                                        <td>{{ ItemEntry::countData($itemEntry->id) }}</td>
                                                         <td>
                                                             <div x-data="{ deleteShow: false, deleteHide: true }">
                                                         

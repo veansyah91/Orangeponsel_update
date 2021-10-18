@@ -2,7 +2,7 @@
 <div>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card">
 
                     <div class="card-header h3">
@@ -46,6 +46,7 @@
                                     <th class="text-center">Tipe</th>
                                     <th class="text-center">Kode</th>
                                     <th class="text-center">Jumlah</th>
+                                    <th class="text-center">Nomor Nota</th>
                                     <th class="text-center">Tanggal Masuk</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
@@ -62,6 +63,7 @@
                                             <td class="text-center" >
                                                 {{ $d->jumlah }}
                                             </td>
+                                            <td class="text-center" >{{ ItemEntry::show($d->item_entry_id)['nomor_nota']}}</td>
                                             <td class="text-center" >{{ Date('d F Y', strtotime($d->updated_at)) }}</td>
                                             <td class="text-center">
                                                 @role('SUPER ADMIN')

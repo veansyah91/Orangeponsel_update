@@ -173,6 +173,7 @@ return [
         App\Providers\RoleHelperServiceProvider::class,
         App\Providers\CreditPartnerHelperServiceProvider::class,
         App\Providers\ProductHelperServiceProvider::class,
+        App\Providers\ItemEntryHelperServiceProvider::class,
 
         Barryvdh\DomPDF\ServiceProvider::class,
         /*
@@ -250,6 +251,7 @@ return [
         'Role' => App\Helpers\RoleHelper::class,
         'CreditPartner' => App\Helpers\CreditPartnerHelper::class,
         'Product' => App\Helpers\ProductHelper::class,
+        'ItemEntry' => App\Helpers\ItemEntryHelper::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
