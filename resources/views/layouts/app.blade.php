@@ -95,6 +95,12 @@
                                 </li>
                             @endrole
 
+                            @role('SUPER ADMIN|ADMIN')
+                                <li class="nav-item{{ request()->is('service') ? ' active' : '' }}">
+                                    <a class="nav-link" href="{{ route('service.index') }}">Service</a>
+                                </li>
+                            @endrole
+
                             @role('SUPER ADMIN')
                                 <li class="nav-item{{ request()->is('credit-partners') ? ' active' : '' }}">
                                     <a class="nav-link" href="{{ route('credit-partners.index') }}">Mitra Kredit</a>
