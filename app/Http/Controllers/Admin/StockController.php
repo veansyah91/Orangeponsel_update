@@ -31,6 +31,7 @@ class StockController extends Controller
                                     ->where('stocks.jumlah', '>' ,0)                                   
                                     ->select('stocks.id','stocks.updated_at','stocks.jumlah','products.modal','products.tipe', 'products.kode','products.category_id','stocks.outlet_id','stocks.item_entry_id', 'categories.nama as category_name')
                                     ->orderBy('categories.id')
+                                    ->orderBy('products.tipe')
                                     ->get();
         $pdf = PDF::loadView('admin.stock.pdf', [
             'stocks' => $stocks

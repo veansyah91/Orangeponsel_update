@@ -4,14 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <title>Stock Report</title>
+    <style>
+        .text-center{
+            text-align:center
+        }
+
+        .text-right{
+            text-align:right
+        }
+
+        table, th, td{
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+
+        
+    </style>
 </head>
 <body>
     <center>
         <h2>Stok Barang</h2>
 
-        <table class="table table-bordered table-sm mt-2">
+        <table>
             <thead>
                 <tr class="text-center">
                     <th>Kategori</th>
@@ -44,7 +60,7 @@
                         <td colspan="5" class="text-right"> 
                             <strong>Jumlah</strong>                            
                         </td>
-                        <td>
+                        <td class="text-right">
                             {{ number_format($total,0,",",".") }}
                         </td>
                     </tr>
