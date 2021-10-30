@@ -80,7 +80,7 @@ class CreditPartnerController extends Controller
                                                                 'creditPartner' => $creditPartner,
                                                                 'lastInvoice' => $lastInvoice,
                                                                 ]);
-	    return $pdf->download('invoice-claim');
+	    return $pdf->download('invoice-claim-' . $lastInvoice . '.pdf');
     }
 
     public function history($partner)

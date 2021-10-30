@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Model\Stock;
 use App\Model\Outlet;
 
+use App\Model\Category;
 use Livewire\Component;
 use App\Model\OutletUser;
 use App\Helpers\RoleHelper;
@@ -34,32 +35,32 @@ class StockIndex extends Component
 
     public function mount()
     {
-        $user = Auth::user();
-        $roleUser = RoleHelper::getRole($user->id);
-
-        if ($roleUser->name == 'SUPER ADMIN') {
-            # code...
-            $outlets = Outlet::all();
-            $this->selectOutlet = $outlets[0]->id;
-        } else {
-            $outletUser = OutletUser::where('user_id', $user->id)->first();
-            $this->selectOutlet = $outletUser->outlet_id;
-        }
+        $this->selectOutlet = '';
     }
 
     public function render()
     {
-        $stocks = DB::table('stocks')->join('outlets','outlets.id','=','stocks.outlet_id')
-                                                    ->join('products','products.id','=','stocks.product_id')
-                                                    ->where('products.tipe','like', '%' . $this->search . '%')
-                                                    ->orWhere('products.kode','like', '%' . $this->search . '%')
-                                                    ->select('stocks.id','stocks.updated_at','stocks.jumlah','outlets.nama as nama_outlet','products.tipe', 'products.kode','products.category_id','stocks.outlet_id','stocks.item_entry_id')
-                                                    ->orderByDesc('stocks.jumlah','products.kode')
-                                                    ->paginate($this->paginate)  ;
 
-        // dd($this->selectOutlet);
+        $stocks = DB::table('stocks')->join('outlets','outlets.id','=','stocks.outlet_id')
+                                    ->join('products','products.id','=','stocks.product_id')
+                                    ->join('categories','categories.id','=','products.category_id')
+                                    ->where('stocks.outlet_id','like', '%' . $this->selectOutlet . '%')
+                                    ->where(function($query) {
+                                        $query->where('products.tipe','like', '%' . $this->search . '%')
+                                            ->orWhere('products.kode','like', '%' . $this->search . '%');
+                                    })
+                                    
+                                    ->select('stocks.id','stocks.updated_at','stocks.jumlah','outlets.nama as nama_outlet','products.tipe', 'products.kode','products.category_id','stocks.outlet_id','stocks.item_entry_id', 'categories.nama as category_name')
+                                    ->orderByDesc('stocks.jumlah','products.kode')
+                                    ->paginate($this->paginate)  ;
+
+        $categories = Category::all();
+        $outlets = Outlet::all();
+
         return view('livewire.stock-index',[
-            'data' => $stocks
+            'data' => $stocks,
+            'categories' => $categories,
+            'outlets' => $outlets,
         ]);
     }
 

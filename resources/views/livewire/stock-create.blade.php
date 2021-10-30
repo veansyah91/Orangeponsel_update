@@ -17,8 +17,8 @@
                 </div>
             @endrole
             <div class="form-group row">
-                <label for="kode" class="col-sm-2 col-form-label">Kode/IMEI</label>
-                <div class="col-sm-4">
+                <label for="kode" class="col-lg-2 col-12 col-form-label">Kode/IMEI</label>
+                <div class="col-lg-4 col-12">
                     <input 
                         wire:model="kode" 
                         type="text" 
@@ -61,8 +61,8 @@
                     </div>  
                 </div>
 
-                <label for="tipe" class="col-sm-1 col-form-label">Tipe</label>
-                <div class="col-sm-3">
+                <label for="tipe" class="col-lg-1 col-12 col-form-label">Tipe</label>
+                <div class="col-lg-3 col-12">
                     <input 
                         wire:model="tipe" 
                         type="text" 
@@ -75,8 +75,8 @@
                 
             </div>
             <div class="form-group row">
-                <label for="jumlah" class="col-sm-2 col-form-label">Jumlah</label>
-                <div class="col-sm-2"> 
+                <label for="jumlah" class="col-2 col-form-label">Jumlah</label>
+                <div class="col-lg-2 col-3"> 
                     <input 
                         wire:model="jumlah" 
                         type="number"

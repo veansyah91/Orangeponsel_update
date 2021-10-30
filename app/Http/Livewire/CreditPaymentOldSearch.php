@@ -38,8 +38,9 @@ class CreditPaymentOldSearch extends Component
         $this->emit('showInputPayment');
     }
 
-    public function select($id)
+    public function selectData($id)
     {
+        
         $this->emit('selectId', $id);
     }
 }

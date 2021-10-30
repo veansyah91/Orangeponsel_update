@@ -128,7 +128,7 @@
                                     </div>
 
                                     <div class="col-lg-2">
-                                        <button class="btn btn-primary w-100" wire:click='select({{ $creditCustomer->id }})'>
+                                        <button class="btn btn-primary w-100" wire:click='selectData({{ $creditCustomer->id }})'>
                                             Pilih
                                         </button>
                                     </div>

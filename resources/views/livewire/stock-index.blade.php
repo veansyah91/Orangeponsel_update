@@ -25,20 +25,54 @@
                     @endif
                 
                     <div class="card-body">
-                        <div class="form-group row col">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Tampilkan</label>
-                            <div class="col-sm-2">
-                                <select class="custom-select" id="inputGroupSelect01" wire:model='paginate'>
-                                    <option value="5">5</option>
-                                    <option value="10">10</option>
-                                    <option value="20">20</option>
-                                </select>
+                        <div class="row">
+                            <div class="col-12 col-lg-4">
+                                <div class="form-group row">
+                                    <label for="inputGroupSelect01" class="col-sm-3 col-form-label">Show</label>
+                                    <div class="col-sm-3">
+                                        <select class="custom-select" id="inputGroupSelect01" wire:model='paginate'>
+                                            <option value="5">5</option>
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-sm-8 col-auto" >
-                                <input type="text"class="form-control" id="search" placeholder="Cari (Kode/Tipe)" wire:model="search">
+
+                            <div class="col-12 col-lg-3">
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <select class="custom-select" id="outlet" wire:model='selectOutlet'>
+                                            <option value="">-- Pilih Outlet --</option>
+                                            @foreach ($outlets as $outlet)
+                                                <option value="{{ $outlet->id }}">{{ $outlet->nama }}</option>
+                                            @endforeach                                            
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
+
+                            <div class="col-12 col-lg-3">
+                                <div class="form-group row">
+                                    <label for="search" class="col-sm-1 col-form-label d-none d-md-block">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                        </svg>
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <input type="text"class="form-control" id="search" placeholder="Cari (Kode/Tipe)" wire:model="search">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-2 text-right">
+                                <a href="{{ url('/stock/pdf') }}" class="btn btn-danger btn-sm mt-auto">
+                                    pdf
+                                </a>
+                            </div>
+                            
                         </div>
-                        <table class="table">
+                        <table class="table table-responsive">
                             <thead>
                                 <tr>
                                     <th class="text-center">Outlet</th>
@@ -57,7 +91,7 @@
                                     @foreach ( $data as $d )
                                         <tr>
                                             <td class="text-center" wire:key="{{ $loop->index }}">{{ $d->nama_outlet }}</td>
-                                            <td class="text-center" >{{ Category::getName($d->category_id)->nama }}</td>
+                                            <td class="text-center" >{{ $d->category_name }}</td>
                                             <td class="text-center" >{{ $d->tipe}}</td>
                                             <td class="text-center" >{{ $d->kode }}</td>
                                             <td class="text-center" >
