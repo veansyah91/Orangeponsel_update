@@ -14,10 +14,14 @@
             text-align:right
         }
 
-        table, th, td{
+        table{
             width: 100%;
+        }
+
+        table, th, td{
             border-collapse: collapse;
             border: 1px solid black;
+            font-size: 12px;
         }
 
         
