@@ -40,7 +40,12 @@ class StockIndex extends Component
 
     public function render()
     {
-
+        $user = Auth::user();
+        $outletUser = OutletUser::where('user_id', $user['id'])->first();
+        if ($outletUser) {
+            $this->selectOutlet = $outletUser['outlet_id'];
+        }
+        
         $stocks = DB::table('stocks')->join('outlets','outlets.id','=','stocks.outlet_id')
                                     ->join('products','products.id','=','stocks.product_id')
                                     ->join('categories','categories.id','=','products.category_id')
