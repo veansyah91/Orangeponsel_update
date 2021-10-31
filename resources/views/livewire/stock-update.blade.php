@@ -77,7 +77,7 @@
                     <input 
                         wire:model="jumlah" 
                         type="number"
-                        min="1"
+                        min="0"
                         class="form-control @error('kode') is-invalid @enderror" 
                         placeholder="Jumlah"
 
