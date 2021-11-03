@@ -89,6 +89,4 @@ class BalanceAdd extends Component
         $this->emit('getBalanceDetail');
 
     }
-
-    
 }

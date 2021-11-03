@@ -37,7 +37,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/stock/item-entry', 'Admin\ItemEntryController@index')->name('stock.item-entry');
     Route::get('/stock/item', 'Admin\StockController@index')->name('stock.index');
     Route::get('/stock/balance', 'Admin\StockController@balance')->name('stock.balance');
+    Route::get('/stock/asset', 'Admin\StockController@asset')->name('stock.asset');
     Route::get('/stock/pdf', 'Admin\StockController@pdf')->name('stock.pdf');
+    Route::get('/stock/asset-pdf', 'Admin\StockController@assetPdf')->name('stock.asset-pdf');
 
     Route::get('/outlets-cashflow', 'Admin\StockController@index')->name('outlets-cashflow.index');
 

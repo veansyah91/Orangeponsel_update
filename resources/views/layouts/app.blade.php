@@ -77,6 +77,7 @@
                                         <a class="dropdown-item{{ request()->is('stock/item-entry') ? ' active' : '' }}" href="{{ route('stock.item-entry') }}">Barang Masuk</a>
                                         <a class="dropdown-item{{ request()->is('stock/item') ? ' active' : '' }}" href="{{ route('stock.index') }}">Stok Barang</a>
                                         <a class="dropdown-item{{ request()->is('stock/balance') ? ' active' : '' }}" href="{{ route('stock.balance') }}">Stok Saldo</a>
+                                        <a class="dropdown-item{{ request()->is('stock/asset') ? ' active' : '' }}" href="{{ route('stock.asset') }}">Asset</a>
                                     </div>
                                 </li>
 

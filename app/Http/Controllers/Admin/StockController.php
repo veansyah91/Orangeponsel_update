@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use PDF;
+use App\Model\Asset;
 use App\Model\OutletUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,7 +12,8 @@ use Illuminate\Support\Facades\Auth;
 
 class StockController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('admin.stock.index');
     }
 
@@ -38,5 +40,24 @@ class StockController extends Controller
         ]);
 
         return $pdf->download('stock-report.pdf');
+    }
+
+    public function asset()
+    {
+        return view('admin.stock.asset');
+    }
+
+    public function assetPdf()
+    {
+        $user = Auth::user();
+        $outletUser = OutletUser::where('user_id', $user['id'])->first();
+
+        $assets = Asset::where('outlet_id', $outletUser['outlet_id'])->get();
+
+        $pdf = PDF::loadView('admin.stock.asset-pdf', [
+            'assets' => $assets
+        ]);
+
+        return $pdf->download('assets-report.pdf');
     }
 }

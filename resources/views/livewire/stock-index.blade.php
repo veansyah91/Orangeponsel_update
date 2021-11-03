@@ -111,7 +111,7 @@
                                                         </div>
                                                     </div>
                                                 @else
-                                                    @if ($selectOutlet == $d->outlet_id)                                                    
+                                                    @if ($outletUser['outlet_id'] == $d->outlet_id)                                                    
                                                         <button wire:click="getOutlet({{ $d->id }})" class="btn btn-sm btn-success">Ubah</button>
                                                         <div class="btn-group">
                                                             <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

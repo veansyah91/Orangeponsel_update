@@ -110,5 +110,12 @@
             </tr>
         </tbody>
     </table>
+
+    <div style="margin-top: 10px">
+        Bank Transfer a.n Ferdi Yansyah:
+    </div>
+    <div>
+        BRI 216001010680503
+    </div>
 </body>
 </html>
