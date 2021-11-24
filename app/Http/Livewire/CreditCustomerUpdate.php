@@ -8,7 +8,7 @@ use App\Model\CreditCustomer;
 
 class CreditCustomerUpdate extends Component
 {
-    public $no_ktp, $no_kk, $nama, $jenis_kelamin, $alamat, $no_hp, $outlet, $dataId;
+    public $no_ktp, $no_kk, $nama, $jenis_kelamin, $alamat, $no_hp, $dataId;
 
     protected $listeners = [
         'getUpdateData' => 'handleUpdateData'
@@ -31,8 +31,7 @@ class CreditCustomerUpdate extends Component
         $this->nama = $data->nama;
         $this->jenis_kelamin = $data->jenis_kelamin;
         $this->alamat = $data->alamat;
-        $this->no_hp = $data->no_hp;
-        $this->outlet = $data->outlet_id;        
+        $this->no_hp = $data->no_hp;    
     }
 
     public function update()
@@ -54,7 +53,6 @@ class CreditCustomerUpdate extends Component
             'jenis_kelamin' => $this->jenis_kelamin,
             'alamat' => $this->alamat,
             'no_hp' => $this->no_hp,
-            'outlet_id' => $this->outlet
         ]);
 
         $this->emit('hasUpdatedData');

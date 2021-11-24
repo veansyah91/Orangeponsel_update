@@ -44,18 +44,18 @@ class CreditPartnerController extends Controller
                         ->join('credit_applications','credit_applications.id','=','credit_application_invoices.credit_application_id')
                         ->join('credit_customers','credit_customers.id','=','credit_applications.credit_customer_id')
                         ->where('credit_application_invoices.status','=','waiting')
-                        ->select('credit_application_invoices.created_at','credit_application_invoices.id','credit_application_invoices.product_id','credit_applications.outlet_id','credit_customers.nama','credit_customers.no_hp','credit_applications.merk')
+                        ->select('credit_application_invoices.created_at','credit_application_invoices.harga as harga','credit_application_invoices.id','credit_application_invoices.product_id','credit_applications.outlet_id','credit_customers.nama','credit_customers.no_hp','credit_applications.merk')
                         ->get();  
 
         $lastInvoice = CreditPartnerInvoice::where('credit_partner_id', $partner)->get()->last();
 
-        $lastInvoice = $lastInvoice ? $lastInvoice->nomor + 1 : 1;
+        $invoiceNumber = $lastInvoice ? $lastInvoice->nomor + 1 : 1;
 
         $creditPartner = CreditPartner::find($partner);
 
         // create new invoice 
-        $creditPartnerInvoice = CreditPartnerInvoice::create([
-            'nomor' => $lastInvoice,
+        $createCreditPartnerInvoice = CreditPartnerInvoice::create([
+            'nomor' => $invoiceNumber,
             'credit_partner_id' => $partner,
             'status' => 'waiting'
         ]);
@@ -63,7 +63,7 @@ class CreditPartnerController extends Controller
         // create detail invoice 
         foreach ($invoices as $invoice) {
             $creditInvoiceClaimDetails = CreditInvoiceClaimDetail::create([
-                "credit_partner_invoice_id"  => $creditPartnerInvoice->id,
+                "credit_partner_invoice_id"  => $createCreditPartnerInvoice->id,
                 "credit_app_inv_id" => $invoice->id
             ]);
         }
@@ -78,9 +78,9 @@ class CreditPartnerController extends Controller
         $pdf = PDF::loadview('admin.credit.invoice-claim-pdf',[
                                                                 'invoices' => $invoices,
                                                                 'creditPartner' => $creditPartner,
-                                                                'lastInvoice' => $lastInvoice,
+                                                                'lastInvoice' => $invoiceNumber,
                                                                 ]);
-	    return $pdf->download('invoice-claim-' . $lastInvoice . '.pdf');
+	    return $pdf->download('invoice-claim-' . $invoiceNumber . '.pdf');
     }
 
     public function history($partner)

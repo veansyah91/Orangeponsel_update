@@ -11,4 +11,9 @@ class ServiceController extends Controller
     {
         return view('admin.service.index');
     }
+
+    public function invoice()
+    {
+        return view('admin.service.invoice');
+    }
 }

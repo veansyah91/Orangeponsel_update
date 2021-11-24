@@ -29,7 +29,7 @@
 </head>
 <body>
     <center>
-        <h2>Stok Barang</h2>
+        <h2>Aset</h2>
 
         <table>
             <thead>

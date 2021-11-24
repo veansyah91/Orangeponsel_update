@@ -26,7 +26,12 @@
                                             </button>
                                         </div>
                                         <div class="col-12 col-lg-6">
-                                            <small class="text-danger text-center"><i>menu ini untuk pengambilan unit diatas tanggal 18 september 2021</i> </small>
+                                            @php
+                                                $date = $lastInvoice ? explode(" ",$lastInvoice->created_at) : '';
+                                            @endphp
+                                            @if ($lastInvoice)
+                                                <small class="text-danger text-center"><i>menu ini untuk pengambilan unit diatas tanggal {{ $date[0] }}</i> </small>
+                                            @endif
                                         </div>
                                     </div>
                                     

@@ -45,7 +45,7 @@
                                                         <td>{{ $creditInvoiceApplication->no_hp }}</td>
                                                         <td>{{ Product::show($creditInvoiceApplication->product_id)->kode }}</td>
                                                         <td>{{ Product::show($creditInvoiceApplication->product_id)->tipe }}</td>
-                                                        <td>Rp. {{ number_format(Product::show($creditInvoiceApplication->product_id)->jual,0,",",".") }}</td>
+                                                        <td>Rp. {{ number_format($creditInvoiceApplication->harga,0,",",".") }}</td>
                                                         <td>{{ $creditInvoiceApplication->email ? $creditInvoiceApplication->email : '-' }}</td>
                                                         <td>{{ $creditInvoiceApplication->password ? $creditInvoiceApplication->password : '-' }}</td>
                                                         <td class="text-danger">Belum Diklaim</td>

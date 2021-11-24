@@ -1,41 +1,105 @@
 <div>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-10">
-                <div class="card">
-                    <div class="card-header h4">
-                        Service
-                    </div>
-                    <div class="card-body">
-                        <button class="btn btn-primary">Tambah</button>
-                        <table class="table table-responsive-sm mt-2">
-                            <thead>
-                                <tr>
-                                    <th>Nama</th>
-                                    <th>Nomor HP</th>
-                                    <th>Tipe</th>
-                                    <th>Keterangan</th>
-                                    <th>Tanggal Masuk</th>
-                                    <th>Tanggal Keluar</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Ferdi</td>
-                                    <td>0812 6577 2321</td>
-                                    <td>Oppo A7</td>
-                                    <td>Perbaikan LCD</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-danger">Hapus</button>
-                                        <button class="btn btn-sm btn-success">Ubah</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+    @if ($showCreate)
+        <livewire:service-create />
+    @elseif($showUpdate)
+        <livewire:service-update />
+    @else
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header h4">
+                            Service
+                        </div>
+                        <div class="card-body">
+                            <button class="btn btn-primary" wire:click="showCreateFunc">Tambah</button>
+                            <table class="table table-responsive-sm mt-2">
+                                <thead>
+                                    <tr>
+                                        <th>Nomor</th>
+                                        <th>Nama</th>
+                                        <th>Nomor HP</th>
+                                        <th>Tipe</th>
+                                        <th>Keterangan</th>
+                                        <th>Tanggal Masuk</th>
+                                        <th>Tanggal Keluar</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if ($services->isNotEmpty())
+                                        @foreach ($services as $service)
+                                            <tr>
+                                                <td>{{ $service->nomor }}</td>
+                                                <td>{{ $service->nama }}</td>
+                                                <td>{{ $service->no_hp }}</td>
+                                                <td>{{ $service->tipe }}</td>
+                                                <td>{{ $service->keterangan }}</td>
+                                                <td>{{ $service->tanggal_masuk }}</td>
+                                                <td>{{ $service->tanggal_keluar }}</td>
+                                                @php
+                                                    $color = 'text-secondary';
+                                                    if ($service->status == 'done')
+                                                    {
+                                                        $color = 'text-success';
+                                                    } elseif ($service->status == 'cancel') 
+                                                    {
+                                                        $color = 'text-danger';
+                                                    }
+                                                @endphp
+                                                <td class="{{ $color }}">
+                                                    {{ $service->status }} 
+                                                    @if ($service->status == 'pending')
+                                                        <button class="btn btn-sm btn-link">
+                                                            <div class="btn-group">
+                                                                <button type="button" class="btn btn-sm btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                                                    </svg>
+                                                                </button>
+                                                                <div class="dropdown-menu">
+                                                                    <button class="dropdown-item" wire:click="cancelSetStateFunc({{ $service->id }})">cancel</button>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </button>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <div x-data="{ hapus: false, general: true }">
+                                                        <div x-show='general'>
+                                                            <button class="btn btn-sm btn-success" wire:click='update({{ $service->id }})'>ubah</button>
+                                                            <button class="btn btn-sm btn-danger" @click="hapus=true;general=false">hapus</button>
+                                                        </div>
+                                                    
+                                                        <div x-show="hapus" @click.away="hapus=false">
+                                                            Apakah Anda Yakin?
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <button class="btn btn-sm btn-secondary" @click="hapus=false;general=true">Tidak</button>
+                                                                    <button class="btn btn-sm btn-danger" @click="hapus=false;general=true" wire:click="delete({{ $service->id }})">Ya</button>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="7" class="font-italic text-center">data kosong</td>
+                                        </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
+    
 </div>

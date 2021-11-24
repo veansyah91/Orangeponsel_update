@@ -96,10 +96,18 @@
                                 </li>
                             @endrole
 
-                            @role('SUPER ADMIN|ADMIN')
-                                <li class="nav-item{{ request()->is('service') ? ' active' : '' }}">
-                                    <a class="nav-link" href="{{ route('service.index') }}">Service</a>
-                                </li>
+                            @role('SUPER ADMIN|ADMIN|FRONT LINER')
+                            <li class="nav-item dropdown{{ request()->is('service/*') ? ' active' :'' }}">
+                                <a class="nav-link dropdown-toggle" href="#" id="serviceDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Service
+                                </a>
+                                
+                                <div class="dropdown-menu" aria-labelledby="serviceindexDropdownMenuLink">
+                                    <a class="dropdown-item{{ request()->is('service/masuk') ? ' active' : '' }}" href="{{ route('service.index') }}">Masuk</a>                                 
+                                    <a class="dropdown-item{{ request()->is('service/invoice') ? ' active' : '' }}" href="{{ route('service.invoice') }}">Invoice</a>                          
+                                </div>
+
+                            </li>
                             @endrole
 
                             @role('SUPER ADMIN')

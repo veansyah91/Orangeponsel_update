@@ -97,9 +97,9 @@
                     <td class="text-center" style="font-size: 12px;border: 1px solid black;">{{ $invoice->no_hp }}</td>
                     <td class="text-center" style="font-size: 12px;border: 1px solid black;">{{ Product::show($invoice->product_id)->kode }}</td>
                     <td class="text-center" style="font-size: 12px;border: 1px solid black;">{{ Product::show($invoice->product_id)->tipe }}</td>
-                    <td class="text-center" style="font-size: 12px;border: 1px solid black;">Rp. {{ number_format(Product::show($invoice->product_id)->jual,0,",",".") }}</td>
+                    <td class="text-center" style="font-size: 12px;border: 1px solid black;">Rp. {{ number_format($invoice->harga,0,",",".") }}</td>
                     @php
-                        $total += Product::show($invoice->product_id)->jual ;
+                        $total += $invoice->harga;
                     @endphp
                 </tr>
             @endforeach

@@ -137,6 +137,8 @@ class CreditApplicationInvoiceUpdate extends Component
             'jumlah' => $stockBaru
         ]);
 
+        // dd($stock);
+
         $update = CreditApplicationInvoice::find($this->invoiceId)->update([
             'credit_application_id' =>  $this->applicationId,
             'harga' =>  $this->harga,
@@ -154,9 +156,8 @@ class CreditApplicationInvoiceUpdate extends Component
         ]);
 
         // kurangi jumlah stock
-        $this->jumlahUnit--;      
         $updateStock = Stock::find($this->stockId)->update([
-            'jumlah' => $this->jumlahUnit
+            'jumlah' => $stock['jumlah'] - 1
         ]);
 
         $this->emit('successUpdate');

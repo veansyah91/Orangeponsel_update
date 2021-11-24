@@ -57,17 +57,6 @@
                     @error('no_hp')
                         <small class="form-text text-danger">Silakan Isi Nomor HP dengan Benar</small>
                     @enderror
-
-                    @role('SUPER ADMIN')
-                        <div class="form-group">
-                            <label for="outlet">Outlet Pengajuan</label>
-                            <select class="form-control" id="outlet" wire:model="outlet">
-                                @foreach ($outlets as $outlet)
-                                    <option value="{{ $outlet->id }}">{{ $outlet->nama }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    @endrole
                     <button type="submit" class="btn btn-primary" >Ubah</button>
                 </form>
             </div>  

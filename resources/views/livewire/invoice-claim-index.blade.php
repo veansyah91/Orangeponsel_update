@@ -58,7 +58,7 @@
                                                 <td>{{ $invoice->no_hp }}</td>
                                                 <td>{{ Product::show($invoice->product_id)->kode }}</td>
                                                 <td>{{ Product::show($invoice->product_id)->tipe }}</td>
-                                                <td>Rp. {{ number_format(Product::show($invoice->product_id)->jual,0,",",".") }}</td>
+                                                <td>Rp. {{ number_format($invoice->harga,0,",",".") }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

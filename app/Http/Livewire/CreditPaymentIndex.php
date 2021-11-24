@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 use App\Model\CreditApplication;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Model\CreditApplicationInvoice;
 
 class CreditPaymentIndex extends Component
 {
@@ -51,9 +52,15 @@ class CreditPaymentIndex extends Component
 
         $status = CreditPayment::where('status', '0')->where('outlet', $outlet)->get()->count();
 
+        $lastInvoice = DB::table('credit_application_invoices')
+                            ->join('credit_applications', 'credit_applications.id', '=', 'credit_application_invoices.credit_application_id')
+                            ->where('credit_applications.credit_partner_id', $this->partner_id)->select('credit_application_invoices.created_at')->first();
+                            // dd($lastInvoice->created_at);
+
         return view('livewire.credit-payment-index', [
             'creditPayments' => $creditPayments,
             'status' => $status,
+            'lastInvoice' => $lastInvoice,
         ]);
     }
 
