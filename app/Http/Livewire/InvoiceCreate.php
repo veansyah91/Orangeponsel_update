@@ -159,7 +159,7 @@ class InvoiceCreate extends Component
         $this->tipe = $product->tipe;
 
         // dd($this->customerId);
-        $this->harga = CustomerHelper::getName($this->customerId)->outlet_id ? $product->modal : $product->jual;
+        $this->harga = CustomerHelper::getName($this->customerId)['outlet_id'] ? $product->modal : $product->jual;
         $this->showProductInputList = false;
         $this->showCustomerInputList = false;
     }
