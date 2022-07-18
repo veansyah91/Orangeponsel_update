@@ -20,11 +20,13 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    @stack('stylesheets')
+
     <!-- Livewire -->
     <livewire:styles />
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="d-print-none">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
@@ -54,7 +56,7 @@
                                 </li>
 
                                 <li class="nav-item dropdown{{ request()->is('master/*') ? ' active' :'' }}">
-                                    <a class="nav-link dropdown-toggle" href="#" id="masterDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle dropdown-toggle-arrow" href="#" id="masterDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Master
                                     </a>
                                     
@@ -69,8 +71,8 @@
                                 </li>
 
                                 <li class="nav-item dropdown{{ request()->is('stock/*') ? ' active' : '' }}">
-                                    <a class="nav-link dropdown-toggle" href="#" id="masterDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Stok
+                                    <a class="nav-link dropdown-toggle dropdown-toggle-arrow" href="#" id="masterDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Stok 
                                     </a>
                                     
                                     <div class="dropdown-menu" aria-labelledby="masterDropdownMenuLink">
@@ -82,7 +84,7 @@
                                 </li>
 
                                 <li class="nav-item dropdown{{ request()->is('daily/*') ? ' active' :'' }}">
-                                    <a class="nav-link dropdown-toggle" href="#" id="harianDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle dropdown-toggle-arrow" href="#" id="harianDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Harian
                                     </a>
                                     
@@ -98,7 +100,7 @@
 
                             @role('SUPER ADMIN|ADMIN|FRONT LINER')
                             <li class="nav-item dropdown{{ request()->is('service/*') ? ' active' :'' }}">
-                                <a class="nav-link dropdown-toggle" href="#" id="serviceDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle dropdown-toggle-arrow" href="#" id="serviceDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Service
                                 </a>
                                 
@@ -125,7 +127,7 @@
 
                                     @if ( User::getSalesDetail(Auth::user()['id'])['credit_partner_id'] ==  $partner->id)
                                         <li class="nav-item dropdown{{ request()->is($link) ? ' active' :'' }}">
-                                            <a class="nav-link dropdown-toggle" href="#" id="harianDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <a class="nav-link dropdown-toggle dropdown-toggle-arrow" href="#" id="harianDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 {{ $partner->alias ? $partner->alias : $partner->nama_partner }}
                                             </a>
 
@@ -221,7 +223,7 @@
                                     
                                 @else
                                     <li class="nav-item dropdown{{ request()->is($link) ? ' active' :'' }}">
-                                        <a class="nav-link dropdown-toggle" href="#" id="harianDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <a class="nav-link dropdown-toggle dropdown-toggle-arrow" href="#" id="harianDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             {{ $partner->alias ? $partner->alias : $partner->nama_partner }}
                                         </a>
 
@@ -331,7 +333,7 @@
                         @else
                             @role('SUPER ADMIN|ADMIN')
                                 <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle{{ request()->is('account/*') ? ' active' :'' }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle dropdown-toggle-arrow{{ request()->is('account/*') ? ' active' :'' }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1h7.956a.274.274 0 0 0 .014-.002l.008-.002c-.002-.264-.167-1.03-.76-1.72C13.688 10.629 12.718 10 11 10c-1.717 0-2.687.63-3.24 1.276-.593.69-.759 1.457-.76 1.72a1.05 1.05 0 0 0 .022.004zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10c-1.668.02-2.615.64-3.16 1.276C1.163 11.97 1 12.739 1 13h3c0-1.045.323-2.086.92-3zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
                                         </svg>
@@ -361,7 +363,7 @@
                                 </li>
                             @endrole
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle{{ request()->is('change-password') ? ' active' :'' }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggled ropdown-toggle-arrow{{ request()->is('change-password') ? ' active' :'' }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
@@ -394,7 +396,13 @@
         </main>
     </div>
 
+    <div id="print" class="d-print-block d-none mt-3 mb-2 font-monospace" style="width: 70mm;color:black">
+        
+    </div> 
+
     <livewire:scripts />
+    
+    @stack('scripts')
     {{-- <script src="https://cdn.jsdelivr.net/gh/livewire/vue@v0.3.x/dist/livewire-vue.js"></script> --}}
 </body>
 </html>

@@ -11,4 +11,14 @@ class CustomerController extends Controller
     public function index(){
         return view('admin.master.customer.index');
     }
+
+    public function getCustomer()
+    {
+        $customers = Customer::where('nama', 'like', '%' . request('pelanggan') . '%')->limit(5)->get();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $customers
+        ]);
+    }
 }

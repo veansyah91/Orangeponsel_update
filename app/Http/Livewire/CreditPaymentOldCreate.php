@@ -95,7 +95,7 @@ class CreditPaymentOldCreate extends Component
         // dapatkan jatuh tempo dari data pengajuan kredit lama 
         $creditAppOld = CreditApplicationOld::find($this->customerId);
 
-        $bulan_ke = '+' . $this->angsuran_ke - 1 . 'month';
+        $bulan_ke = '+' . ($this->angsuran_ke - 1) . 'month';
         $jatuh_tempo = date('Y-m-d', strtotime($bulan_ke, strtotime( $creditAppOld['tanggal_akad'] )));
 
         $terlambat = 0;

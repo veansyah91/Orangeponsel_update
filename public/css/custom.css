@@ -1,0 +1,9 @@
+.dropdown-item:hover{
+    background-color: #e6e6e6;
+}
+
+@media only screen and (max-width: 768px) {
+    .btn-submit {
+        width: 100%;
+    }
+}

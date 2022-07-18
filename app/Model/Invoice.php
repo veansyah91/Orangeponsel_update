@@ -40,4 +40,9 @@ class Invoice extends Model
     {
         return $this->hasMany('App\Model\InterOutlet');
     }
+
+    public function accountReceivable()
+    {
+        return $this->hasOne('App\Model\AccountReceivable');
+    }
 }

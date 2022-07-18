@@ -109,7 +109,7 @@ class CreditPaymentCreate extends Component
         // ambil jatuh tempo berdasarkan nota pengambilan barang
         $creditAppInv = CreditApplicationInvoice::where('credit_application_id', $this->credit_app_id)->first();
 
-        $bulan_ke = '+' . $this->angsuran_ke - 1 . 'month';
+        $bulan_ke = '+' . ($this->angsuran_ke - 1) . 'month';
 
         $this->jatuh_tempo = date('Y-m-d', strtotime($bulan_ke, strtotime( $creditAppInv['created_at']->toDateString() )));
 
