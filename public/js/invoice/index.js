@@ -194,7 +194,7 @@ cancelEditProductButton.addEventListener('click', () => {
 const getInvoiceNumber = async () => {
     await axios.get('/api/invoice/get-invoice-number?outlet_id=' + outletId.value)
         .then(response => {
-            nomorNota.value = response.data ? response.data.data.no_nota + 1 : 1;
+            nomorNota.value = response.data ? parseInt(response.data.data.no_nota) + 1 : 1;
         })
         .catch(error => {
             console.log(error);
@@ -475,7 +475,6 @@ payConfirmationButton.addEventListener('click', function(){
 
     printButton.addEventListener('click',async function(){
         await saveInvoice();
-
     })
 });
 
