@@ -1,5 +1,5 @@
 const outletId = document.getElementById('outlet-id');
-const invoice = {
+let invoice = {
     outletId: outletId.value,
     nomor_nota: '',
     pelangganId: '',
@@ -371,8 +371,8 @@ inputPayment.addEventListener('keyup', function(){
 const payConfirmationButton = document.getElementById('pay-confirmation-button');
 
 payConfirmationButton.addEventListener('click', function(){
+    inputPayment.value = formatRupiah('0');
     invoice.totalBayar = toPrice(inputPayment.value);
-    console.log(invoice);
     app.classList.add('d-none');
     printInvoice.classList.remove('d-none');
 
@@ -474,27 +474,43 @@ payConfirmationButton.addEventListener('click', function(){
     })
 
     printButton.addEventListener('click',async function(){
-        await saveInvoice();
+        await saveInvoice(true);
+    })
+
+    newInvoice.addEventListener('click',async function(){
+        await saveInvoice(false);
     })
 });
 
-const saveInvoice = async () => {
+const saveInvoice = async (print = false) => {
     await axios.post('/api/invoice/create',
         invoice
     )
     .then(res => {
-        window.print();
-        
-        nomorNota.value = invoice.nomor_nota + 1;
-        produk.value = '';
-        pelanggan.value = '';
-        totalInvoice.map(total => {
-            total.innerText = `Rp.`;
-        });
-        detailInvoice.innerHTML = '';
-        setDefault();
+        print ? window.print() : '';
         printInvoice.classList.add('d-none');
         app.classList.remove('d-none');
+
+        setTimeout(() => {
+            pelanggan.value = '';
+            produk.value = '';
+            harga.value = '';
+            jumlah.value = '0';
+            nomorNota.value = invoice.nomor_nota;
+            
+            btnBayar.setAttribute('disabled', 'disabled');
+            totalInvoice.map(total => {
+                total.innerText = `Rp.`;
+            });
+            detailInvoice.innerHTML = '';
+            setDefault();
+        }, 100);
+        invoice = {
+            nomor_nota: res.data.data.no_nota + 1,
+            namaPelanggan: '',
+            totalBayar: 0,
+            detail: []
+        }
     })
     .catch(err => {
         console.log(err);

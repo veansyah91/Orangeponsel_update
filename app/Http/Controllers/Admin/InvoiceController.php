@@ -93,7 +93,7 @@ class InvoiceController extends Controller
         // return json
         return response()->json([
             'status' => 'success',
-            'data' => $request->detail
+            'data' => $invoice
         ]);
     }
 
