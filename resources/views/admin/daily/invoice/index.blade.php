@@ -167,6 +167,36 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-4 mt-lg-0 mt-3">
+            <div class="card" style="height: 512px">
+                <div class="card-header h3 row justify-content-between">
+                    <div class="col-6">
+                        Riwayat
+                    </div>
+                    <div class="col-6 text-right" id="total-history-invoice">
+                        
+                    </div>
+                    
+                </div>
+                <div class="card-body overflow-auto table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr class="text-center">
+                                <th>Nomor Nota</th>
+                                <th>Pelanggan</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="invoice-history-detail">
+                            
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -239,6 +269,65 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                 <button type="button" class="btn btn-primary" id="pay-confirmation-button" data-dismiss="modal" data-outlet-name="{{ $outlet->nama }}" data-outlet-address="{{ $outlet->alamat }}" data-user="{{ Auth::user()->name }}">Bayar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="invoiceDetailModal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="invoice-detail-modal-title">Detail</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body table-responsive" id="invoice-detail-modal-body">
+                <div class="row">
+                    <div class="col-12 table-responsive">
+                        <table class="table table-borderless">
+                            <tr>
+                                <th  class="w-25">Nomor Nota</th>
+                                <th id="invoice-detail-number"></th>
+                            </tr>
+                            <tr>
+                                <th>Nama</th>
+                                <th id="invoice-detail-customer">: Ferdi Yansyah</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <table class="table table-sm">
+                    <thead>
+                        <tr class="text-center">
+                            <th>#</th>
+                            <th>Kode</th>
+                            <th>Produk</th>
+                            <th>Qty</th>
+                            <th>Harga</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invoice-detail-list">
+                        
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th class="text-right" colspan="5">Grand Total</th>
+                            <th class="text-right" id="grand-total-invoice-history"></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="modal-footer">
+               
+                <button type="button" class="btn btn-success" data-dismiss="modal" id="print-invoice-history-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
+                        <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+                        <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/>
+                      </svg></button>
             </div>
         </div>
     </div>

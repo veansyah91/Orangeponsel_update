@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('/invoice/get-invoice-number', 'Admin\InvoiceController@getInvoiceNumber')->name('check-invoice');
+Route::get('/invoices','Admin\InvoiceController@getInvoice')->name('get-invoice-history');
 Route::post('/invoice/create', 'Admin\InvoiceController@create')->name('create-invoice');
 
 Route::get('/pelanggan/get-pelanggan', 'Admin\CustomerController@getCustomer')->name('get-pelanggan');

@@ -97,6 +97,21 @@ class InvoiceController extends Controller
         ]);
     }
 
+    public function getInvoice(Request $request)
+    {
+        $invoice = Invoice::where('outlet_id', $request->outletId)
+                            ->whereDate('created_at', $request->date)
+                            ->with('customer')
+                            ->with('invoiceDetail','invoiceDetail.product')
+                            ->get();
+        
+        // return json
+        return response()->json([
+            'status' => 'success',
+            'data' => $invoice
+        ]);
+    }
+
     public function balance()
     {
         return view('admin.daily.invoice.balance');

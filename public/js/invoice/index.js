@@ -8,7 +8,7 @@ let invoice = {
     detail: []
 };
 
-// let detail = [];
+let invoiceHistory = [];
 
 const printInvoice = document.getElementById('print');
 const app = document.getElementById('app');
@@ -446,7 +446,11 @@ payConfirmationButton.addEventListener('click', function(){
             </tfoot>`;
 
     list += `</table>
-            <div class='row justify-content-center'>
+            <div class="text-center border-bottom font-italic font-weight-bold">
+                Terima Kasih Atas Kunjungan Anda
+            </div>`;
+
+    list += `<div class='row justify-content-center'>
                 <div class='col-12'>
                     <button class="btn btn-sm btn-primary d-print-none w-100" id="print-btn" >
                         cetak
@@ -504,6 +508,7 @@ const saveInvoice = async (print = false) => {
             });
             detailInvoice.innerHTML = '';
             setDefault();
+            getInvoiceHistory();
         }, 100);
         invoice = {
             nomor_nota: res.data.data.no_nota + 1,
@@ -561,6 +566,206 @@ const waktu = () => {
     return `${tanggal}/${bulan+1}/${tahun} ${jam}:${menit}:${detik}`
 }
 
+const getInvoiceHistory = async () => {
+    await axios.get(`/api/invoices?outletId=${outletId.value}&date=${now()}`)
+    .then(res => {
+        let list = '';
+        invoiceHistory = res.data.data;
+        let invoiceHistoryDetail = document.getElementById('invoice-history-detail');
+        let totalHistory = 0;
+        
+        invoiceHistory.map((history, index) => {
+            //hitung total invoice
+            let total = 0;
+            history.invoice_detail.map(detail => {
+                total += detail.jual * detail.jumlah;
+                });
+            totalHistory += total;
+
+            list += `<tr>
+                        <td class="text-center">${history.no_nota}</td>
+                        <td class="text-center">${history.customer.nama}</td>
+                        <td class="text-right">${formatRupiah(total.toString())}</td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                                        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                                    </svg>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <button class="dropdown-item"
+                                        onclick="showDetailInvoiceHistory(${index})"
+                                        data-toggle="modal" data-target="#invoiceDetailModal"
+                                        >
+                                        <div class="row">
+                                            <div class="col-3 my-auto">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                                </svg>
+                                            </div>
+                                            <div class="col-9 my-auto">
+                                                Detail
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>`
+        });
+
+        invoiceHistoryDetail.innerHTML = list;
+        const totalHistoryInvoice = document.getElementById('total-history-invoice');
+        totalHistoryInvoice.innerHTML = `${formatRupiah(totalHistory.toString())}`;
+
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
+
+const printInvoiceHistoryButton = document.getElementById('print-invoice-history-button');
+
+const showDetailInvoiceHistory = (id) => {
+    const invoiceDetailNumber = document.getElementById('invoice-detail-number');
+    invoiceDetailNumber.innerHTML = `: ${invoiceHistory[id].no_nota}`;
+
+    const invoiceDetailCustomer = document.getElementById('invoice-detail-customer');
+    invoiceDetailCustomer.innerHTML = `: ${invoiceHistory[id].customer.nama}`;
+
+    const invoiceDetailList = document.getElementById('invoice-detail-list');
+
+    let list = '';
+    let grandTotalInvoice = 0;
+    invoiceHistory[id].invoice_detail.map((detail, index) => {
+        let total = detail.jual * detail.jumlah; 
+        grandTotalInvoice += total;
+        list += `<tr>
+                    <td class="text-center">${index + 1}</td>
+                    <td class="text-center">${detail.product.kode}</td>
+                    <td class="text-center">${detail.product.tipe}</td>
+                    <td class="text-center">${detail.jual}</td>
+                    <td class="text-center">${detail.jumlah}</td>
+                    <td class="text-right">${formatRupiah(total.toString())}</td>
+                </tr>`
+    });
+
+    invoiceDetailList.innerHTML = list;
+
+    let grandTotalInvoiceHistory = document.getElementById('grand-total-invoice-history');
+
+    grandTotalInvoiceHistory.innerHTML = `${formatRupiah(grandTotalInvoice.toString())}`;
+
+    printInvoiceHistoryButton.addEventListener('click', () => {
+        printInvoiceHistory(invoiceHistory[id]);
+    })
+}
+
+const printInvoiceHistory = (invoice) => {
+    app.classList.add('d-none');
+    printInvoice.classList.remove('d-none');
+
+    let list = '';
+
+    list += `<div class="text-center fw-bold">
+                        ${payConfirmationButton.dataset.outletName}
+                    </div>
+                    <div class="text-center">
+                    ${payConfirmationButton.dataset.outletAddress}
+                    </div>`;
+
+    list += `<table style="font-size: 13px">
+                <tbody>
+                    <tr>
+                        <td>Nomor Nota</td>
+                        <td>: ${invoice.no_nota}</td>
+                    </tr>
+                    <tr>
+                        <td>Kepada</td>
+                        <td>: ${invoice.customer.nama}</td>
+                    </tr>
+                    <tr>
+                        <td>Kasir</td>
+                        <td>: ${capital(payConfirmationButton.dataset.user)}</td>
+                    </tr>
+                    <tr>
+                        <td>Waktu</td>
+                        <td>: ${waktu()}</td>
+                    </tr>
+                </tbody>
+            </table>`;
+
+    list += `<table style="width: 100%;font-size: 14px; font-family: 'Arial', Times, serif;margin-bottom:10px;">`
+
+    let grandTotal = 0;
+    let i = 0;
+    invoice.invoice_detail.map(item => {
+        i += item.jumlah;
+        let total = item.jumlah * item.jual;
+        grandTotal += total;
+        list += `<tbody style="border-top:1px solid;border-bottom:1px solid">
+                <tr style="vertical-align: text-top;">
+                    <td>${item.product.kode}</td>
+                    <td style="padding-left: 2px" colspan="2" class="align-baseline">${item.product.tipe}</td>
+                </tr>
+                <tr>
+                    <td class="text-center">${item.jumlah}</td>
+                    <td class="text-right">${formatRupiah(item.jual.toString())}</td>
+                    <td class="text-right">${formatRupiah(total.toString())}</td>
+                </tr>
+                </tbody>`
+    });
+
+    list += `<tfoot style="border-bottom: 2px solid">
+            <tr class="font-weight-bold">
+                <td class="text-left">Jumlah: ${i}</td>
+                <td class="text-right">Total:</td>
+                <td class="text-right">${formatRupiah(grandTotal.toString())}</td>
+            </tr>
+            </tfoot>`;
+
+    list += `</table>`;
+
+    list += `<div class='row justify-content-center'>
+                <div class='col-12'>
+                    <button class="btn btn-sm btn-primary d-print-none w-100" id="print-btn" >
+                        cetak
+                    </button>
+                </div>
+                <div class='col-12'>
+                    <button id="batal-print" class="btn btn-sm btn-secondary d-print-none w-100">
+                        kembali
+                    </button>
+                </div>
+            </div>`;
+
+    printInvoice.innerHTML = list;
+
+    const  batalPrint = document.getElementById('batal-print');
+    const printButton = document.getElementById('print-btn');
+
+    batalPrint.addEventListener('click', function(){
+        printInvoice.classList.add('d-none');
+        app.classList.remove('d-none');
+    })
+
+    printButton.addEventListener('click',async function(){
+        window.print();
+    })
+}
+
+const now = () => {
+    date = new Date();
+    year = date.getFullYear();
+    month = date.getMonth();
+    day = date.getDate();
+
+    return `${year}-${month+1}-${day}`
+}
+
 window.addEventListener('load', function () {
     getInvoiceNumber();
+    getInvoiceHistory();
 })

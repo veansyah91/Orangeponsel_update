@@ -45,4 +45,9 @@ class Invoice extends Model
     {
         return $this->hasOne('App\Model\AccountReceivable');
     }
+
+    public function invoiceDetail()
+    {
+        return $this->hasMany('App\Model\InvoiceDetail');
+    }
 }
