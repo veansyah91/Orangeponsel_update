@@ -13,7 +13,6 @@ let invoiceHistory = [];
 const printInvoice = document.getElementById('print');
 const app = document.getElementById('app');
 
-
 const nomorNota = document.getElementById('nomor_nota');
 const pelanggan = document.getElementById('pelanggan');
 const kode = document.getElementById('kode');
@@ -194,6 +193,7 @@ cancelEditProductButton.addEventListener('click', () => {
 const getInvoiceNumber = async () => {
     await axios.get('/api/invoice/get-invoice-number?outlet_id=' + outletId.value)
         .then(response => {
+            console.log(response.data.data.no_nota);
             nomorNota.value = response.data ? parseInt(response.data.data.no_nota) + 1 : 1;
         })
         .catch(error => {
