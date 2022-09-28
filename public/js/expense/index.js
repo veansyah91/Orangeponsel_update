@@ -319,7 +319,6 @@ const handleModalInput = () => {
     } = defineComponentElement();
 
     //input value
-    console.log(data);
     noRef.value = data.noRef;
     itemExpense.value = data.itemName;
     valueInput.value = formatRupiah(data.value.toString());
