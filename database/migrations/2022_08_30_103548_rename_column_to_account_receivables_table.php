@@ -9,7 +9,7 @@ class RenameColumnToAccountReceivablesTable extends Migration
     /**
      * Run the migrations.
      *
-     * @return void
+     * @return voidhttps://github.com/veansyah91/Orangeponsel_update.git
      */
     public function up()
     {
