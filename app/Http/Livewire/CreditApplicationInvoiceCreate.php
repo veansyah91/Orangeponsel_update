@@ -147,13 +147,7 @@ class CreditApplicationInvoiceCreate extends Component
             'password' => $this->password,
         ]);
 
-        $this->jumlahUnit--;
         
-        // kurangi jumlah stock
-        $updateStock = Stock::find($this->stockId)->update([
-            'jumlah' => $this->jumlahUnit
-        ]);
-
         $this->emit('successCreate');
     }
 }
