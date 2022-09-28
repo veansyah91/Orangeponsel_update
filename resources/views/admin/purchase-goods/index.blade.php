@@ -258,7 +258,7 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/purchase-goods/index.js') }}">
+    <script src="{{ asset('/js/purchase-goods/index.js') }}">
     </script>
 
     <script>
