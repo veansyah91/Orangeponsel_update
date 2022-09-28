@@ -22,9 +22,9 @@ class PurchaseGoodsController extends Controller
     public function index()
     {
         $outletUser = OutletUser::where('user_id', Auth::user()->id)->first();
-        $outlet = Outlet::find($outletUser->outlet_id);
+        $outlet = Outlet::find($outletUser['outlet_id']);
 
-        $cashAccounts = Account::where('outlet_id', $outletUser->outlet_id)
+        $cashAccounts = Account::where('outlet_id', $outletUser['outlet_id'])
                                 ->where(function($query) {
                                     $query->where('code', 'like', '110' . '%')
                                         ->orWhere('code','like', '111' . '%');
