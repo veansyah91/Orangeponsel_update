@@ -111,6 +111,8 @@ const showData  = async _ => {
 
     let url = `/api/purchase-goods?outlet_id=${purchaseGoods.outletId}&search=${search}`;
 
+    console.log(url);
+
     await axios.get(url)
                 .then((result) => {  
                     let purchaseGoodsResult = result.data.data;
