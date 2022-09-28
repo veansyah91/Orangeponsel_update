@@ -33,7 +33,6 @@ class PurchaseGoodsController extends Controller
                                 ->orderBy('code', 'asc')
                                 ->get();
 
-                                dd($cashAccounts);
         return view('admin.purchase-goods.index', [
             'user' => Auth::user(),
             'outletUser' => $outletUser,
