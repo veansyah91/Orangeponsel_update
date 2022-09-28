@@ -30,7 +30,10 @@ class PurchaseGoodsController extends Controller
                                         ->orWhere('code','like', '111' . '%');
                                 })
                                 ->where('is_active', true)
+                                ->orderBy('code', 'asc')
                                 ->get();
+
+                                dd($cashAccounts);
         return view('admin.purchase-goods.index', [
             'user' => Auth::user(),
             'outletUser' => $outletUser,
