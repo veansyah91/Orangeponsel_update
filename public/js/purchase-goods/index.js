@@ -184,7 +184,7 @@ const showData  = async _ => {
                     } else {
                         purchaseGoodsListTable.innerHTML = `<tr class="journal-table-row">
                                     <td colspan="5" class="text-center font-italic">
-                                        Tidak Ada Data
+                                        Tidak Ada Data Pembelian Barang Dagang
                                     </td>
                                 </tr>`
                     }
