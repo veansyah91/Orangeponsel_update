@@ -678,7 +678,7 @@ const handleSubmitEdit = async () => {
 }
 
 const handleSubmitCreate = async () => {
-    const url = `/api/purchase-goods/`;
+    const url = `/api/purchase-goods`;
     await axios.post(url, purchaseGoods)
                 .then(async res => {
                     Swal.fire({
