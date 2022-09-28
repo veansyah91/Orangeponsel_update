@@ -111,8 +111,6 @@ const showData  = async _ => {
 
     let url = `/api/purchase-goods?outlet_id=${purchaseGoods.outletId}&search=${search}`;
 
-    console.log(url);
-
     await axios.get(url)
                 .then((result) => {  
                     let purchaseGoodsResult = result.data.data;
@@ -773,7 +771,6 @@ const submitSearchPurchaseGoods = async (event) => {
 
 
 window.addEventListener('load',async function(){
-    console.log('mulai halaman pembelian barang dagang');
     setDefault();
     await showData();
 })
