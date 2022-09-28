@@ -1,10 +1,12 @@
 const outletId = document.getElementById('outlet-id');
 let invoice = {
-    outletId: outletId.value,
+    outletId: parseInt(outletId.value),
     nomor_nota: '',
     pelangganId: '',
     namaPelanggan: '',
-    totalBayar: '',
+    totalBayar: 0,
+    sisaBayar: 0,
+    cashierId: '',
     detail: []
 };
 
@@ -70,7 +72,7 @@ const showDetailProduct = () => {
                                         <td class="text-right">${formatRupiah(total.toString())}</td>
                                         <td>
                                             <div class="dropdown">
-                                                <button class="btn btn-sm btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                                <button class="btn btn-sm btn-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
                                                         <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
                                                       </svg>
@@ -116,9 +118,9 @@ const showDetailProduct = () => {
 }
 
 const setDefault = () => {
-    kode.value = '';
-    produk.value = '';
-    harga.value = '';
+    kode.value = 0;
+    produk.value = 0;
+    harga.value = 0;
     jumlah.value = 1; 
 
     cancelEditProductButton.classList.add('d-none');
@@ -128,13 +130,12 @@ const setDefault = () => {
 }
 
 addProductButton.addEventListener('click', async () => {
-    
-    invoice.nomor_nota = parseInt(nomorNota.value);
+    invoice.nomor_nota = nomorNota.value;
     
     invoice.detail = [...invoice.detail, {
         kode: kode.value,    
         produk: produk.value,
-        idProduk: idProduk.value,
+        idProduk: parseInt(idProduk.value),
         harga: parseInt(toPrice(harga.value)),
         jumlah: parseInt(jumlah.value),
     }];
@@ -176,7 +177,7 @@ editProductButton.addEventListener('click', () => {
     let detailItem = {};
     detailItem.kode = kode.value;
     detailItem.produk = produk.value;
-    detailItem.idProduk = idProduk.value;
+    detailItem.idProduk = parseInt(idProduk.value);
     detailItem.harga = parseInt(harga.value.replace(/[^0-9]/g, ''));
     detailItem.jumlah = parseInt(jumlah.value);
     invoice.detail[indexUbah] = detailItem;
@@ -193,8 +194,7 @@ cancelEditProductButton.addEventListener('click', () => {
 const getInvoiceNumber = async () => {
     await axios.get('/api/invoice/get-invoice-number?outlet_id=' + outletId.value)
         .then(response => {
-            console.log(response.data.data.no_nota);
-            nomorNota.value = response.data ? parseInt(response.data.data.no_nota) + 1 : 1;
+            nomorNota.value = response.data.data;
         })
         .catch(error => {
             console.log(error);
@@ -287,7 +287,7 @@ cariProduk.addEventListener('click', function(){
                         produk.value = p.dataset.produk;
                         produk.value = p.dataset.produk;
                         idProduk.value = p.dataset.productId;
-                        harga.value = harga.value = formatRupiah(p.dataset.jual);
+                        harga.value = formatRupiah(p.dataset.jual);
 
                         setAddButtonActive();
                     })
@@ -357,21 +357,40 @@ const setAddButtonActive = () => {
 const inputPayment = document.getElementById('input-payment');
 const sisa = document.getElementById('sisa');
 
+const selectCashier = (value) => {
+    payConfirmationButton.classList.remove('d-none') ;
+
+    invoice.cashierId = value.value;
+
+}
+
 inputPayment.addEventListener('keyup', function(){
     if (inputPayment.value == '') {
         inputPayment.value = '0';
     }
+
     inputPayment.value = formatRupiah(this.value);
 
-    let sisaBelanja = parseInt(toPrice(inputPayment.value)) - totalBelanja;
+    invoice.sisaBayar = parseInt(toPrice(inputPayment.value)) - totalBelanja;
 
-    sisa.innerText = `Rp.${sisaBelanja < 0 ? '-' : ''} ${formatRupiah(sisaBelanja.toString())}`;
+    sisa.innerText = `Rp.${invoice.sisaBayar < 0 ? '-' : ''} ${formatRupiah(invoice.sisaBayar.toString())}`;
+
+    
+    //cek pilihan kasir
+    const selectCash = document.querySelector('#select-cash');
+    const payConfirmationButton = document.querySelector('#pay-confirmation-button');
+
+    invoice.cashierId = parseInt(selectCash.value);
+
+    invoice.cashierId > 0
+    ?  payConfirmationButton.classList.remove('d-none')
+    : payConfirmationButton.classList.add('d-none') ;
 })
 
 const payConfirmationButton = document.getElementById('pay-confirmation-button');
 
 payConfirmationButton.addEventListener('click', function(){
-    inputPayment.value = formatRupiah('0');
+    // inputPayment.value = formatRupiah('0');
     invoice.totalBayar = toPrice(inputPayment.value);
     app.classList.add('d-none');
     printInvoice.classList.remove('d-none');
@@ -487,10 +506,12 @@ payConfirmationButton.addEventListener('click', function(){
 });
 
 const saveInvoice = async (print = false) => {
+    
     await axios.post('/api/invoice/create',
         invoice
     )
     .then(res => {
+        console.log(res.data.data);
         print ? window.print() : '';
         printInvoice.classList.add('d-none');
         app.classList.remove('d-none');
@@ -506,64 +527,27 @@ const saveInvoice = async (print = false) => {
             totalInvoice.map(total => {
                 total.innerText = `Rp.`;
             });
+
             detailInvoice.innerHTML = '';
             setDefault();
             getInvoiceHistory();
         }, 100);
         invoice = {
-            nomor_nota: res.data.data.no_nota + 1,
+            outletId: outletId.value,
+            nomor_nota: '',
+            pelangganId: '',
             namaPelanggan: '',
             totalBayar: 0,
+            sisaBayar: 0,
+            cashierId: '',
             detail: []
-        }
+        };
+        getInvoiceNumber()
     })
     .catch(err => {
         console.log(err);
     })
 
-}
-
-/* Fungsi formatRupiah */
-function formatRupiah(angka, prefix) {
-    var number_string = angka.replace(/[^,\d]/g, "").toString(),
-      split = number_string.split(","),
-      sisa = split[0].length % 3,
-      rupiah = split[0].substr(0, sisa),
-      ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-  
-    // tambahkan titik jika yang di input sudah menjadi angka ribuan
-    if (ribuan) {
-      separator = sisa ? "." : "";
-      rupiah += separator + ribuan.join(".");
-    }
-  
-    rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
-    return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
-  }
-
-function toPrice(angka) {
-    return angka.replace(/[^0-9]/g, '');
-}
-
-function capital(str)
-{
-    return str.replace(/\w\S*/g, function(kata){ 
-        const kataBaru = kata.slice(0,1).toUpperCase() + kata.substr(1);
-        return kataBaru
-    });
-}
-
-const waktu = () => {
-    date = new Date();
-    millisecond = date.getMilliseconds();
-    detik = date.getSeconds();
-    menit = date.getMinutes();
-    jam = date.getHours();
-    hari = date.getDay();
-    tanggal = date.getDate();
-    bulan = date.getMonth();
-    tahun = date.getFullYear();
-    return `${tanggal}/${bulan+1}/${tahun} ${jam}:${menit}:${detik}`
 }
 
 const getInvoiceHistory = async () => {
@@ -588,7 +572,7 @@ const getInvoiceHistory = async () => {
                         <td class="text-right">${formatRupiah(total.toString())}</td>
                         <td>
                             <div class="dropdown">
-                                <button class="btn btn-sm btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                <button class="btn btn-sm btn-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
                                         <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
                                     </svg>
@@ -646,7 +630,7 @@ const showDetailInvoiceHistory = (id) => {
                     <td class="text-center">${index + 1}</td>
                     <td class="text-center">${detail.product.kode}</td>
                     <td class="text-center">${detail.product.tipe}</td>
-                    <td class="text-center">${detail.jual}</td>
+                    <td class="text-center">${formatRupiah(detail.jual.toString())}</td>
                     <td class="text-center">${detail.jumlah}</td>
                     <td class="text-right">${formatRupiah(total.toString())}</td>
                 </tr>`
@@ -765,7 +749,11 @@ const now = () => {
     return `${year}-${month+1}-${day}`
 }
 
-window.addEventListener('load', function () {
-    getInvoiceNumber();
-    getInvoiceHistory();
+// setInterval(function () {
+//     getInvoiceHistory();
+// }, 2000);
+
+window.addEventListener('load', async function () {
+    await getInvoiceNumber();
+    await getInvoiceHistory();
 })

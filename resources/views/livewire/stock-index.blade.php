@@ -97,7 +97,7 @@
                                             <td class="text-center" >
                                                 {{ $d->jumlah }}
                                             </td>
-                                            <td class="text-center" >{{ ItemEntry::show($d->item_entry_id)['nomor_nota']}}</td>
+                                            <td class="text-center" >{{ ItemEntry::show($d->item_entry_id) ? ItemEntry::show($d->item_entry_id)['nomor_nota'] : ''}}</td>
                                             <td class="text-center" >{{ Date('d F Y', strtotime($d->updated_at)) }}</td>
                                             <td class="text-center">
                                                 @role('SUPER ADMIN')

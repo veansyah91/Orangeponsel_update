@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Invoice extends Model
 {
-    protected $fillable = ['no_nota','jumlah','jual','outlet_id','product_id','customer_id'];
+    protected $fillable = ['cashier_id','no_nota','jumlah','jual','outlet_id','product_id','customer_id','account_name'];
 
     public function outlet(){
         return $this->belongsTo('App\Model\Outlet'); 

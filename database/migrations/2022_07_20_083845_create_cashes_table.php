@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAccountReceivablesTable extends Migration
+class CreateCashesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateAccountReceivablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('account_receivables', function (Blueprint $table) {
+        Schema::create('cashes', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('outlet_id')->unsigned();
+            $table->bigInteger('credit');
+            $table->bigInteger('debit');
             $table->timestamps();
-            $table->integer('remaining');
-            
-            $table->unsignedBigInteger('invoice_id');
-            $table->foreign('invoice_id')->references('id')->on('invoices')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -30,6 +29,6 @@ class CreateAccountReceivablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('account_receivables');
+        Schema::dropIfExists('cashes');
     }
 }

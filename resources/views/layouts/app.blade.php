@@ -11,7 +11,16 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    {{-- JQUERY --}}
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    
+
+    {{-- date picker --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.id.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,7 +29,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    @stack('stylesheets')
+     @stack('stylesheets')
 
     <!-- Livewire -->
     <livewire:styles />
@@ -44,9 +53,6 @@
                                 <li class="nav-item{{ request()->is('outlet') ? ' active' : '' }}">
                                     <a class="nav-link" href="{{ route('outlet.index') }}">Outlet</a>
                                 </li>
-                            @endrole
-
-                            @role('SUPER ADMIN|ADMIN|FRONT LINER')
                                 <li class="nav-item{{ request()->is('inter-outlet') ? ' active' : '' }}">
                                     <a class="nav-link" href="{{ route('inter-outlet.index') }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
@@ -54,6 +60,10 @@
                                         </svg>
                                     </a>
                                 </li>
+                            @endrole
+
+                            @role('SUPER ADMIN|ADMIN|FRONT LINER')
+                                
 
                                 <li class="nav-item dropdown{{ request()->is('master/*') ? ' active' :'' }}">
                                     <a class="nav-link dropdown-toggle dropdown-toggle-arrow" href="#" id="masterDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -83,16 +93,48 @@
                                     </div>
                                 </li>
 
-                                <li class="nav-item dropdown{{ request()->is('daily/*') ? ' active' :'' }}">
+                                <li class="nav-item dropdown{{ request()->is('sales/*') ? ' active' :'' }}">
                                     <a class="nav-link dropdown-toggle dropdown-toggle-arrow" href="#" id="harianDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Harian
+                                        Penjualan
                                     </a>
                                     
                                     <div class="dropdown-menu" aria-labelledby="harianDropdownMenuLink">
-                                        <a class="dropdown-item{{ request()->is('daily/invoice') ? ' active' : '' }}" href="{{ route('daily.invoice') }}">Invoice</a>                                   
-                                        <a class="dropdown-item{{ request()->is('daily/balance') ? ' active' : '' }}" href="{{ route('daily.balance') }}">Invoice Pulsa</a>                                   
-                                        <hr>
-                                        <a class="dropdown-item{{ request()->is('daily/hutang') ? ' active' : '' }}" href="{{ route('daily.debt') }}">Hutang</a>                                   
+                                        <a class="dropdown-item{{ request()->is('sales/invoice') ? ' active' : '' }}" href="{{ route('sales.invoice') }}">Invoice</a>                                   
+                                        <a class="dropdown-item{{ request()->is('sales/balance') ? ' active' : '' }}" href="{{ route('sales.balance') }}">Top Up</a>                                   
+                                        <hr class="dropdown-divider">
+                                        <a class="dropdown-item{{ request()->is('sales/sales-return') ? ' active' : '' }}" href="{{ route('sales.sales-return') }}">Return Penjualan</a>                                   
+                                        <hr class="dropdown-divider">
+                                        <a class="dropdown-item{{ request()->is('sales/account-receivable') ? ' active' : '' }}" href="{{ route('sales.account-receivable') }}">Daftar Piutang</a>                                   
+                                        <a class="dropdown-item{{ request()->is('sales/account-receivable-payment') ? ' active' : '' }}" href="{{ route('sales.account-receivable-payment') }}">Pembayaran Piutang</a>                                   
+                                    </div>
+
+                                </li>
+
+                                <li class="nav-item dropdown{{ request()->is('purchase/*') ? ' active' :'' }}">
+                                    <a class="nav-link dropdown-toggle dropdown-toggle-arrow" href="#" id="purchasingDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Pembelian
+                                    </a>
+                                    
+                                    <div class="dropdown-menu" aria-labelledby="purchasingDropdownMenuLink">
+                                        <a class="dropdown-item{{ request()->is('purchase/purchase-goods') ? ' active' : '' }}" href="{{ route('purchase.purchase-goods') }}">Pembelian Barang Dagang</a>                                   
+                                        <a class="dropdown-item{{ request()->is('purchase/top-up-balance') ? ' active' : '' }}" href="{{ route('purchase.top-up-balance') }}">Pembelian Saldo</a>
+                                        <hr class="dropdown-divider">
+                                        <a class="dropdown-item{{ request()->is('purchase/purchase-return') ? ' active' : '' }}" href="{{ route('purchase.purchase-return') }}">Retur Pembelian</a>
+                                        <hr class="dropdown-divider">
+                                        <a class="dropdown-item{{ request()->is('purchase/account-payable') ? ' active' : '' }}" href="{{ route('purchase.account-payable') }}">Daftar Hutang</a>
+                                        <a class="dropdown-item{{ request()->is('purchase/account-payable-payment') ? ' active' : '' }}" href="{{ route('purchase.account-payable-payment') }}">Pembayaran Hutang</a>
+
+                                    </div>
+
+                                </li>
+
+                                <li class="nav-item dropdown{{ request()->is('cash/*') ? ' active' :'' }}">
+                                    <a class="nav-link dropdown-toggle dropdown-toggle-arrow" href="#" id="purchasingDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Kas Dan Bank
+                                    </a>
+                                    
+                                    <div class="dropdown-menu" aria-labelledby="purchasingDropdownMenuLink">
+                                        <a class="dropdown-item{{ request()->is('cash/expense') ? ' active' : '' }}" href="{{ route('cash.expense') }}">Pengeluaran</a>                                   
                                     </div>
 
                                 </li>
@@ -107,6 +149,20 @@
                                 <div class="dropdown-menu" aria-labelledby="serviceindexDropdownMenuLink">
                                     <a class="dropdown-item{{ request()->is('service/masuk') ? ' active' : '' }}" href="{{ route('service.index') }}">Masuk</a>                                 
                                     <a class="dropdown-item{{ request()->is('service/invoice') ? ' active' : '' }}" href="{{ route('service.invoice') }}">Invoice</a>                          
+                                </div>
+
+                            </li>
+
+                            <li class="nav-item dropdown{{ request()->is('ledger/*') ? ' active' :'' }}">
+                                <a class="nav-link dropdown-toggle dropdown-toggle-arrow" href="#" id="serviceDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Buku Besar
+                                </a>
+                                
+                                <div class="dropdown-menu" aria-labelledby="serviceindexDropdownMenuLink">
+                                    <a class="dropdown-item{{ request()->is('ledger/account') ? ' active' : '' }}" href="{{ route('ledger.account') }}">Akun</a>                                 
+                                    <a class="dropdown-item{{ request()->is('ledger/ledger') ? ' active' : '' }}" href="{{ route('ledger.ledger') }}">Buku Besar</a>                                 
+                                    <a class="dropdown-item{{ request()->is('ledger/journal') ? ' active' : '' }}" href="{{ route('ledger.journal') }}">Jurnal</a>                                 
+                                    
                                 </div>
 
                             </li>
@@ -363,7 +419,7 @@
                                 </li>
                             @endrole
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggled ropdown-toggle-arrow{{ request()->is('change-password') ? ' active' :'' }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle dropdown-toggle-arrow{{ request()->is('change-password') ? ' active' :'' }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
@@ -404,5 +460,8 @@
     
     @stack('scripts')
     {{-- <script src="https://cdn.jsdelivr.net/gh/livewire/vue@v0.3.x/dist/livewire-vue.js"></script> --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('js/public.js') }}">
+    </script>
 </body>
 </html>

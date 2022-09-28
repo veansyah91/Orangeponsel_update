@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -23,6 +24,21 @@ class ProductController extends Controller
                         ->take(5)
                         ->get();
 
+        return response()->json([
+            'status' => 'success',
+            'data' => $products
+        ]);
+    }
+
+    public function getProducts()
+    {
+        $products = Product::filter(request(['search']))
+                            ->select('tipe','kode','id', 'modal')
+                            ->distinct()
+                            ->skip(0)
+                            ->take(5)
+                            ->get();
+                            
         return response()->json([
             'status' => 'success',
             'data' => $products

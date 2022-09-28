@@ -28,9 +28,21 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/master/pelanggan', 'Admin\CustomerController@index')->name('master.customer');
     Route::get('/master/produk', 'Admin\ProductController@index')->name('master.product');
 
-    Route::get('/daily/invoice', 'Admin\InvoiceController@index')->name('daily.invoice');
-    Route::get('/daily/balance', 'Admin\InvoiceController@balance')->name('daily.balance');
-    Route::get('/daily/hutang', 'Admin\DebtController@index')->name('daily.debt');
+    Route::get('/sales/invoice', 'Admin\InvoiceController@index')->name('sales.invoice');
+    Route::get('/sales/balance', 'Admin\InvoiceController@balance')->name('sales.balance');
+    Route::get('/sales/hutang', 'Admin\DebtController@index')->name('sales.debt');
+    Route::get('/sales/account-receivable', 'Admin\AccountReceivableController@index')->name('sales.account-receivable');
+    Route::get('/sales/account-receivable-payment', 'Admin\AccountReceivablePaymentController@index')->name('sales.account-receivable-payment');
+
+    Route::get('/purchase/purchase-goods','Admin\PurchaseGoodsController@index')->name('purchase.purchase-goods');
+    Route::get('/purchase/top-up-balance','Admin\TopUpBalanceController@index')->name('purchase.top-up-balance');
+    Route::get('/purchase/purchase-return','Admin\PurchaseReturnController@index')->name('purchase.purchase-return');
+    Route::get('/purchase/account-payable','Admin\AccountPayableController@index')->name('purchase.account-payable');
+    Route::get('/purchase/account-payable-payment','Admin\AccountPayablePaymentController@index')->name('purchase.account-payable-payment');
+
+    Route::get('/sales/sales-return','Admin\SalesReturnController@index')->name('sales.sales-return');
+
+    Route::get('/cash/expense','Admin\ExpenseController@index')->name('cash.expense');
 
     Route::get('/service/masuk','Admin\ServiceController@index')->name('service.index');
     Route::get('/service/invoice','Admin\ServiceController@invoice')->name('service.invoice');
@@ -59,6 +71,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/credit-partner/partner={partner}/collect','Admin\CreditCollectController@index')->name('credit-partner.collect');
     Route::get('/credit-partner/partner={partner}/delay-payment','Admin\CreditPaymentDelayController@index')->name('credit-partner.delay-payment');
+
+    Route::get('/ledger/account', 'Admin\AccountController@index')->name('ledger.account');
+    Route::get('/ledger/ledger', 'Admin\LedgerController@index')->name('ledger.ledger');
+    Route::get('/ledger/journal', 'Admin\JournalController@index')->name('ledger.journal');
 
 });
 

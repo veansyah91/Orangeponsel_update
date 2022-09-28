@@ -15,7 +15,7 @@ class Product extends Model
 
     public function category()
     {
-        return $this->belongsTo('App\Modal\Category');
+        return $this->belongsTo(Category::class);
     }
 
     public function supplier()
@@ -31,5 +31,13 @@ class Product extends Model
     public function invoiceDetail()
     {
         return $this->hasOne('App\Model\Invoice');
+    }
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            return $query->where('tipe', 'like', '%' . $search . '%')
+                        ->orWhere('kode', 'like', '%' . $search . '%');
+        });
     }
 }

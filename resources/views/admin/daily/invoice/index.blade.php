@@ -76,7 +76,6 @@
                                       </div>
                                 </div>
                             </div>
-                            
                         </div>
 
                         <input type="hidden" id="id-produk">
@@ -100,13 +99,11 @@
                             </div>
                         </div>
                         
-                        
-                        
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <label for="jumlah" class="col-sm-4 col-form-label">Jumlah</label>
                                 <div class="col-sm-8">
-                                  <input type="text" value="1" class="form-control text-right" id="jumlah">
+                                  <input type="text" value="1" class="form-control text-right" id="jumlah" inputmode="numeric">
                                 </div>
                             </div>
                         </div>
@@ -172,7 +169,7 @@
             <div class="card" style="height: 512px">
                 <div class="card-header h3 row justify-content-between">
                     <div class="col-6">
-                        Riwayat
+                        Saldo
                     </div>
                     <div class="col-6 text-right" id="total-history-invoice">
                         
@@ -253,15 +250,28 @@
                             <th class="text-right" colspan="5">Grand Total</th>
                             <th class="text-right total-invoice"></th>
                         </tr>
+                        
                         <tr>
                             <th class="text-right" colspan="5">Bayar</th>
                             <th class="text-right">
-                                <input type="text" class="form-input text-right" id="input-payment" value="0">
+                                <input type="text" class="form-input text-right w-100" id="input-payment" value="0" inputmode="numeric">
                             </th>
                         </tr>
                         <tr>
                             <th class="text-right" colspan="5">Sisa</th>
                             <th class="text-right" id="sisa"></th>
+                        </tr>
+                        <tr>
+                            <th class="text-right" colspan="5">Kasir</th>
+                            <th class="text-right">
+                                <select id="select-cash" class="form-input w-100" onchange="selectCashier(this)">
+                                    <option value="0">--- Pilih Kas ---</option>
+                                    @foreach ($cashAccounts as $cashAccount)
+                                        <option value="{{ $cashAccount->id }}">{{ $cashAccount->name }}</option>
+                                    @endforeach
+                                    
+                                </select>
+                            </th>
                         </tr>
                     </tfoot>
                 </table>
@@ -305,8 +315,8 @@
                             <th>#</th>
                             <th>Kode</th>
                             <th>Produk</th>
-                            <th>Qty</th>
                             <th>Harga</th>
+                            <th>Qty</th>
                             <th>Total</th>
                         </tr>
                     </thead>
@@ -327,7 +337,8 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
                         <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
                         <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/>
-                      </svg></button>
+                    </svg>
+                </button>
             </div>
         </div>
     </div>
@@ -337,6 +348,5 @@
 
 @push('scripts')
     <script src="{{ asset('js/invoice/index.js') }}">
-        
     </script>
 @endpush
