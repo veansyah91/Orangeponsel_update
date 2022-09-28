@@ -773,6 +773,7 @@ const submitSearchPurchaseGoods = async (event) => {
 
 
 window.addEventListener('load',async function(){
+    console.log('mulai halaman pembelian barang dagang');
     setDefault();
     await showData();
 })
