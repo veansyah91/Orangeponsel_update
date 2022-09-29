@@ -174,8 +174,8 @@ class ExpenseController extends Controller
             'account_id' => $account['id'],
             'account' => $account['name'],
             'no_ref' => $request->noRef,
-            'debit' => 0,
-            'credit' => $request->value,
+            'debit' => $request->value,
+            'credit' => 0,
             'date' => $request->date,
             'description' => 'Expense'
         ]);
@@ -187,8 +187,8 @@ class ExpenseController extends Controller
             'account_id' => $account['id'],
             'account' => $account['name'],
             'no_ref' => $request->noRef,
-            'debit' => $request->value,
-            'credit' => 0,
+            'debit' => 0,
+            'credit' => $request->value,
             'date' => $request->date,
             'description' => 'Expense'
         ]);
