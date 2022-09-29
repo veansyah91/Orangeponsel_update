@@ -511,7 +511,6 @@ const saveInvoice = async (print = false) => {
         invoice
     )
     .then(res => {
-        console.log(res.data.data);
         print ? window.print() : '';
         printInvoice.classList.add('d-none');
         app.classList.remove('d-none');

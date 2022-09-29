@@ -336,7 +336,7 @@ const getTopUpInvoice = async () => {
                     let total = 0;
 
                     invoiceDetails.map((detail, index )=> {
-                        total += detail.selling_price
+                        total += parseInt(detail.selling_price);
                         list += `<tr>
                         <td>${detail.product}</td>
                         <td>Rp. ${formatRupiah(detail.selling_price.toString())}</td>

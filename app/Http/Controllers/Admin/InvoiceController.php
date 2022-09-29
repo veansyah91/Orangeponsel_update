@@ -35,6 +35,7 @@ class InvoiceController extends Controller
                                         ->orWhere('code','like', '111' . '%');
                                 })
                                 ->where('is_active', true)
+                                ->orderBy('code', 'asc')
                                 ->get();
 
         return view('admin.daily.invoice.index', [
@@ -311,6 +312,7 @@ class InvoiceController extends Controller
                                         ->orWhere('code','like', '111' . '%');
                                 })
                                 ->where('is_active', true)
+                                ->orderBy('code', 'asc')
                                 ->get();
 
         $servers = Account::where('outlet_id', $outletUser->outlet_id)

@@ -304,7 +304,6 @@ class PurchaseGoodsController extends Controller
         $purchaseGoods = PurchaseGoods::find($id);
 
         $this->deleteOtherTable($purchaseGoods);
-        
 
         $purchaseGoods->delete();
 
