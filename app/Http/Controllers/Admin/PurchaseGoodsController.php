@@ -103,7 +103,8 @@ class PurchaseGoodsController extends Controller
     public function deleteOtherTable($purchaseGoods)
     {
         // hapus data di buku besar 
-        $ledgers = Ledger::where('outlet_id', $purchaseGoods['outlet_id'])->where('no_ref', $purchaseGoods['invoice_number'])->get();
+        $ledgers = Ledger::where('outlet_id', $purchaseGoods['outlet_id'])
+                            ->where('no_ref', $purchaseGoods['invoice_number'])->get();
         if (count($ledgers) > 0) {
             foreach ($ledgers as $ledger) {
                 $ledger->delete();
@@ -124,23 +125,22 @@ class PurchaseGoodsController extends Controller
             $purchaseGoodsDetail->delete();
         }
 
-        if (!$purchaseGoods['cashier_id']) {
-            $accountPayable = AccountPayable::where('outlet_id', $purchaseGoods['outlet_id'])
-                                                ->where('supplier_id', $purchaseGoods['supplier_id'])
-                                                ->first();
+        $accountPayable = AccountPayable::where('outlet_id', $purchaseGoods['outlet_id'])
+                                            ->where('supplier_id', $purchaseGoods['supplier_id'])
+                                            ->first();
 
-            if ($accountPayable) {
-                $updateBalance = $accountPayable['balance'] - $purchaseGoods['value'];
-                $accountPayable->update([
-                    'value' => $updateBalance
-                ]);
+        if ($accountPayable) {
+            $updateBalance = $accountPayable['balance'] - $purchaseGoods['value'];
 
-                // hapus data pada table rincian hutang
-                $accountPayableDetails = AccountPayableDetail::where('account_payable_id', $accountPayable['id'])->where('ref', $purchaseGoods['invoice_number'])->first();
+            $accountPayable->update([
+                'balance' => $updateBalance
+            ]);
 
-                if ($accountPayableDetails) {
-                    $accountPayableDetails->delete();
-                }
+            // hapus data pada table rincian hutang
+            $accountPayableDetails = AccountPayableDetail::where('account_payable_id', $accountPayable['id'])->where('ref', $purchaseGoods['invoice_number'])->first();
+
+            if ($accountPayableDetails) {
+                $accountPayableDetails->delete();
             }
         }
     }
@@ -281,6 +281,8 @@ class PurchaseGoodsController extends Controller
     {
         $purchaseGoods = PurchaseGoods::find($id);
 
+        $this->deleteOtherTable($purchaseGoods);
+
         $purchaseGoods->update([
             'supplier_id' => $request->supplierId,
             'cashier_id' => $request->cashierId > 0 ? $request->cashierId : null,
@@ -288,8 +290,6 @@ class PurchaseGoodsController extends Controller
             'invoice_number' => $request->invoiceNumber,
             'value' => $request->grandTotal,
         ]);
-
-        $this->deleteOtherTable($purchaseGoods);
 
         $this->createOtherTable($request, $purchaseGoods);
 

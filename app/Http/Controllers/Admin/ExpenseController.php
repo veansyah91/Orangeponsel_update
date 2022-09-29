@@ -226,6 +226,7 @@ class ExpenseController extends Controller
     {   
         //akun kas
         $account = Account::find($request->cashId);
+        
         $expense = Expense::create([
             'outlet_id' => $request->outletId,
             'cash_id' => $account ? $request->cashId : null,

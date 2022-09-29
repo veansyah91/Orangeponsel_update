@@ -428,7 +428,6 @@ const getsuppliers = async (value) => {
 const selectitem = (value) => {
     data.itemId = parseInt(value.value);
     validationInputModal();
-
 }
 
 
