@@ -45,7 +45,7 @@ class Ledger extends Model
 
         //filter by end week
         $query->when($filters['end_week'] ?? false, function ($query) {
-            return $query->whereBetween('date', '<=', now()->endOfWeek());
+            return $query->where('date', '<=', now()->endOfWeek());
         });
 
         // filter by this month

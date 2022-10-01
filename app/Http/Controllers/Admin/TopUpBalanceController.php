@@ -236,6 +236,9 @@ class TopUpBalanceController extends Controller
         $cashier = Account::find($request->cashierId);
         $server = Account::find($request->serverId);
 
+        //hapus table lain
+        $this->deleteOtherTable($topUpBalance);
+
         $topUpBalance->update([
             'supplier_id' => $request->supplierId,
             'server_id' => $request->serverId,
@@ -246,9 +249,6 @@ class TopUpBalanceController extends Controller
             'invoice_number' => $request->invoiceNumber,
             'value' => $request->value,
         ]);
-
-        //hapus table lain
-        $this->deleteOtherTable($topUpBalance);
 
         //tambah table lain
         $this->createOtherTable($request);

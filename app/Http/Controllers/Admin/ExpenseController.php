@@ -167,7 +167,7 @@ class ExpenseController extends Controller
             ]);
         }
 
-        //akun laba rugi
+        //laba ditahan
         $account = Account::where('outlet_id', request('outletId'))->where('code','3200001')->first();
         $ledger = Ledger::create([
             'outlet_id' => $request->outletId,
@@ -180,7 +180,7 @@ class ExpenseController extends Controller
             'description' => 'Expense'
         ]);
 
-        //laba ditahan
+        //akun laba rugi
         $account = Account::where('outlet_id', request('outletId'))->where('code','6990000')->first();
         Ledger::create([
             'outlet_id' => $request->outletId,
