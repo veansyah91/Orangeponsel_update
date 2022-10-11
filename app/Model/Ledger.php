@@ -22,7 +22,7 @@ class Ledger extends Model
         });
 
         //filter by account
-        $query->when($filters['account_id'], function ($query, $account_id) {
+        $query->when($filters['account_id'] ?? false, function ($query, $account_id) {
             return $query->where('account_id', $account_id);
         });
 
@@ -48,6 +48,16 @@ class Ledger extends Model
             return $query->where('date', '<=', now()->endOfWeek());
         });
 
+        //filter by select month
+        $query->when($filters['month'] ?? false, function ($query, $month) {
+            return $query->whereMonth('date',  $month);
+        });
+
+        //filter until select month
+        $query->when($filters['month_selected'] ?? false, function ($query, $month_selected) {
+            return $query->whereMonth('date', '<=',  $month_selected);
+        });
+
         // filter by this month
         $query->when($filters['this_month'] ?? false, function ($query) {
             return $query->whereBetween('date', [
@@ -69,9 +79,27 @@ class Ledger extends Model
             ]);
         });
 
+        //filter by select year
+        $query->when($filters['year'] ?? false, function ($query, $year) {
+            return $query->whereYear('date', $year);
+        });
+
+        //filter until select year
+        $query->when($filters['year_selected'] ?? false, function ($query, $year_selected) {
+            return $query->whereYear('date','<=', $year_selected);
+        });
+
         // filter by end year
         $query->when($filters['end_year'] ?? false, function ($query) {
             return $query->where('date','<=', now()->endOfYear());
+        });
+    }
+
+    public function scopeEachAccount($query, array $filters)
+    {
+        //filter by lost_profit
+        $query->when($filters['lost_profit'] ?? false, function ($query, $account_id) {
+            return $query->where('account_id', $account_id);
         });
     }
 }

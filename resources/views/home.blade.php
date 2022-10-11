@@ -16,25 +16,33 @@
 @endpush
 
 @section('content')
-<div class="container">
+<div class="container"  data-outlet-id="{{ $outletUser['outlet_id'] }}" id="home-container">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-6 col-12 h3">
+                    <div class="row justify-content-between">
+                        <div class="col-md-6 col-12 h3 my-auto">
                             Toko Orange Ponsel
                         </div>
-                        <div class="col-md-6 col-12">
+                        <div class="col-md-3 col-12">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Cari..." aria-label="Cari..." 
-                                id="search-journal">
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="submit"
+                                    <button class="btn btn-outline-secondary" type="button" onclick="prevMonth()"
                                     >
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewBox="0 0 16 16">
+                                        <path d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z"/>
+                                      </svg>
+                                    </button>
+                                </div>
+                                <input type="text" readonly class="form-control-plaintext pr-3 text-center border" placeholder="Filter" aria-label="Filter" 
+                                id="filter-value">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="nextMonth()"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
+                                        <path d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"/>
+                                      </svg>
                                     </button>
                                 </div>
                             </div>
@@ -46,17 +54,15 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="row">
-                                <div class="col-2 my-auto">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-graph-up-arrow text-success" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0Zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5Z"/>
-                                    </svg>
+                                <div class="col-2 my-auto" id="lost-profit-chart-icon">
+                                    
                                 </div>
                                 <div class="col-10">
                                     <div class="h5 text-black-50 font-weight-bold" id="lost-profit-label">
-                                        Laba
+                                        
                                     </div>
                                     <div class="font-weight-bolder h4" id="lost-profit-value">
-                                        Rp. 1000.000
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -73,8 +79,8 @@
                                     <div class="h5 text-black-50 font-weight-bold">
                                         Pendapatan
                                     </div>
-                                    <div class="font-weight-bolder h4">
-                                        Rp. 1000.000
+                                    <div class="font-weight-bolder h4" id="income">
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -91,8 +97,8 @@
                                     <div class="h5 text-black-50 font-weight-bold">
                                         Pengeluaran
                                     </div>
-                                    <div class="font-weight-bolder h4">
-                                        Rp. 1000.000
+                                    <div class="font-weight-bolder h4" id="expense">
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -113,11 +119,11 @@
                                     </svg>
                                 </div>
                                 <div class="col-10">
-                                    <div class="h5 text-black-50 font-weight-bold">
+                                    <div class="h5 text-black-50 font-weight-bold" >
                                         Asset
                                     </div>
-                                    <div class="font-weight-bolder h4 text-info">
-                                        Rp. 1000.000
+                                    <div class="font-weight-bolder h4 text-info" id="asset">
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +139,7 @@
                                     <div class="h5 text-black-50 font-weight-bold">
                                         Kewajiban
                                     </div>
-                                    <div class="font-weight-bolder h4 text-warning">
+                                    <div class="font-weight-bolder h4 text-warning" id="liability">
                                         Rp. 1000.000
                                     </div>
                                 </div>
@@ -151,7 +157,7 @@
                                     <div class="h5 text-black-50 font-weight-bold">
                                         Modal
                                     </div>
-                                    <div class="font-weight-bolder h4 text-success">
+                                    <div class="font-weight-bolder h4 text-success" id="equity">
                                         Rp. 1000.000
                                     </div>
                                 </div>
@@ -159,6 +165,70 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- Modal --}}
+<div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterModalLabel">Filter</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="filter-date">Tanggal</label>
+                    <select class="custom-select" id="filter-date" onchange="changeDateFilter(this)">
+                        <option selected class="text-center" value="0">------ Pilih Waktu ------</option>
+                        <option value="1">Hari Ini</option>
+                        <option value="2">MInggu Ini</option>
+                        <option value="3">Bulan Ini</option>
+                        <option value="4">Tahun Ini</option>
+                        <option value="5">Custom</option>
+                    </select>
+                </div>
+                
+                <div class="row border-top d-none" id="custom-date-filter">
+                    <div class="col-12 col-md-6 mt-2">
+                        <div class="form-group">
+                            <label for="filter-start-date">Dari</label>
+                            <div class="datepicker date input-group p-0 shadow-sm">
+                                <input type="text" placeholder="Pilih Tanggal" class="form-control date-input-type" id="filter-start-date" onchange="changeDateInputFunc(this)" autocomplete="off">
+                                <div class="input-group-append"><span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                                </svg></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mt-2">
+                        <div class="form-group">
+                            <label for="filter-end-date">Ke</label>
+                            <div class="datepicker date input-group p-0 shadow-sm">
+                                <input type="text" placeholder="Pilih Tanggal" class="form-control date-input-type" 
+                                id="filter-end-date"
+                                onchange="changeDateInputFunc(this)" autocomplete="off">
+                                <div class="input-group-append"><span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                                </svg></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <div class="row justify-between">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-primary" id="filter-submit" data-dismiss="modal" onclick="handleFilterSubmit(event)">Filter</button>
+                </div>
+                
             </div>
         </div>
     </div>

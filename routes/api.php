@@ -18,6 +18,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//home
+Route::get('/home/lost-profit', 'HomeController@lostProfit');
+Route::get('/home/asset', 'HomeController@asset');
+Route::get('/home/liability', 'HomeController@liability');
+Route::get('/home/equity', 'HomeController@equity');
+
 Route::get('/get-products','Admin\ProductController@getProducts');
 
 Route::get('/invoice/get-invoice-number', 'Admin\InvoiceController@getInvoiceNumber')->name('check-invoice');
@@ -52,7 +58,6 @@ Route::get('/purchase-return/{id}','Admin\PurchaseReturnController@getSingleData
 Route::post('/purchase-return','Admin\PurchaseReturnController@storeData');
 Route::put('/purchase-return/{id}','Admin\PurchaseReturnController@updateData');
 Route::delete('/purchase-return/{id}','Admin\PurchaseReturnController@deleteData');
-
 
 Route::get('/top-up-balance','Admin\TopUpBalanceController@getData');
 Route::get('/top-up-balance/new-invoice','Admin\TopUpBalanceController@newInvoice');

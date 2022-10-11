@@ -55,7 +55,7 @@ class LedgerController extends Controller
 
         //get base on filtering by date or time
         $amountLedger =Ledger::filter(request(['outlet_id','account_id','search','date_from','date_to','this_week','this_month','this_year']))
-                                ->where('account_id', request('account_id'))
+                                ->eachAccount(request(['lost_profit']))
                                 ->get();
 
         return response()->json([
