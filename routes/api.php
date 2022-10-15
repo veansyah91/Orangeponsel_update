@@ -53,9 +53,9 @@ Route::get('/purchase-goods-detail/{id}','Admin\PurchaseGoodsController@getDataD
 Route::get('/purchase-goods/new-invoice-number','Admin\PurchaseGoodsController@newInvoiceNumber');
 
 Route::get('/purchase-return','Admin\PurchaseReturnController@getData');
+Route::post('/purchase-return','Admin\PurchaseReturnController@storeData');
 Route::get('/purchase-return/new-invoice-number','Admin\PurchaseReturnController@newInvoiceNumber');
 Route::get('/purchase-return/{id}','Admin\PurchaseReturnController@getSingleData');
-Route::post('/purchase-return','Admin\PurchaseReturnController@storeData');
 Route::put('/purchase-return/{id}','Admin\PurchaseReturnController@updateData');
 Route::delete('/purchase-return/{id}','Admin\PurchaseReturnController@deleteData');
 

@@ -140,7 +140,6 @@
                                         Kewajiban
                                     </div>
                                     <div class="font-weight-bolder h4 text-warning" id="liability">
-                                        Rp. 1000.000
                                     </div>
                                 </div>
                             </div>
@@ -158,7 +157,6 @@
                                         Modal
                                     </div>
                                     <div class="font-weight-bolder h4 text-success" id="equity">
-                                        Rp. 1000.000
                                     </div>
                                 </div>
                             </div>
