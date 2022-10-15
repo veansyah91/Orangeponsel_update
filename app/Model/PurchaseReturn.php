@@ -19,7 +19,7 @@ class PurchaseReturn extends Model
     public function scopeFilter($query, array $filters)
     {
         //filter by outlet
-        $query->when($filters['outlet_id']?? false, function ($query, $outlet_id) {
+        $query->when($filters['outlet_id'], function ($query, $outlet_id) {
             return $query->where('outlet_id', $outlet_id);
         });
 
