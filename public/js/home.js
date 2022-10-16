@@ -19,6 +19,16 @@ const defineComponentElement = () => {
     }
 }
 
+const loadingStatus = () => {
+    return `<tr class="journal-table-row">
+        <td colspan="5" class="text-center">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </td>
+    </tr>`;
+}
+
 const showMonthStatus = (month, year) => {
     const {
         filterValue
@@ -54,6 +64,9 @@ const getLostProfit = async () => {
         lostProfitLabel, lostProfitValue, income, expense, lostProfitChartIcon
     } = defineComponentElement();
 
+    income.innerHTML = loadingStatus();
+    expense.innerHTML = loadingStatus();
+
     let url = `/api/home/lost-profit?outlet_id=${outletId}&month=${month}&year=${year}`;
 
     await axios.get(url)
@@ -83,6 +96,9 @@ const getAsset = async () => {
     const {
         asset
     } = defineComponentElement();
+
+    asset.innerHTML = loadingStatus();
+
     let url = `/api/home/asset?outlet_id=${outletId}&month_selected=${month}&year_selected=${year}`;
 
     await axios.get(url)
@@ -99,6 +115,9 @@ const getLiability = async () => {
     const {
         liability
     } = defineComponentElement();
+
+    liability.innerHTML = loadingStatus();
+
     let url = `/api/home/liability?outlet_id=${outletId}&month_selected=${month}&year_selected=${year}`;
 
     await axios.get(url)
@@ -115,6 +134,9 @@ const getEquity = async () => {
     const {
         equity
     } = defineComponentElement();
+
+    equity.innerHTML = loadingStatus();
+
     let url = `/api/home/equity?outlet_id=${outletId}&month_selected=${month}&year_selected=${year}`;
 
     await axios.get(url)
