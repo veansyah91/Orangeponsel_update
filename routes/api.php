@@ -23,6 +23,7 @@ Route::get('/home/lost-profit', 'HomeController@lostProfit');
 Route::get('/home/asset', 'HomeController@asset');
 Route::get('/home/liability', 'HomeController@liability');
 Route::get('/home/equity', 'HomeController@equity');
+Route::get('/home/get-stock-per-category', 'HomeController@getStockPerCategory');
 
 Route::get('/get-products','Admin\ProductController@getProducts');
 

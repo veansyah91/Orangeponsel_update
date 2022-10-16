@@ -151,6 +151,6 @@ const getData = async () => {
     
 }
 
-window.addEventListener('load', function(){
-    setDefaultValue();
+window.addEventListener('load', async function(){
+    await setDefaultValue();
 })

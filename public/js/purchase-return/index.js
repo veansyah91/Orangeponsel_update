@@ -788,7 +788,6 @@ const handlePurchaseReturnPrice = (value) => {
 const handleSubmitCreate = async () => {
     
     const url = `/api/purchase-return`;
-    console.log(purchaseReturn);
     await axios.post(url, purchaseReturn)
                 .then(async res => {
                     Swal.fire({
