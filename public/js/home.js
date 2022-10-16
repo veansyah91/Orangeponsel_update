@@ -29,6 +29,22 @@ const loadingStatus = () => {
     </tr>`;
 }
 
+const setLoading = () => {
+    const {
+        lostProfitLabel, lostProfitValue, income, expense, lostProfitChartIcon, asset, liability, equity
+    } = defineComponentElement();
+
+    lostProfitLabel.innerHTML = loadingStatus();
+    lostProfitValue.innerHTML = loadingStatus();
+    lostProfitChartIcon.innerHTML = loadingStatus();
+    income.innerHTML = loadingStatus();
+    expense.innerHTML = loadingStatus();
+    asset.innerHTML = loadingStatus();
+    liability.innerHTML = loadingStatus();
+    equity.innerHTML = loadingStatus();
+
+}
+
 const showMonthStatus = (month, year) => {
     const {
         filterValue
@@ -64,12 +80,6 @@ const getLostProfit = async () => {
         lostProfitLabel, lostProfitValue, income, expense, lostProfitChartIcon
     } = defineComponentElement();
 
-    lostProfitLabel.innerHTML = loadingStatus();
-    lostProfitValue.innerHTML = loadingStatus();
-    lostProfitChartIcon.innerHTML = loadingStatus();
-    income.innerHTML = loadingStatus();
-    expense.innerHTML = loadingStatus();
-
     let url = `/api/home/lost-profit?outlet_id=${outletId}&month=${month}&year=${year}`;
 
     await axios.get(url)
@@ -100,8 +110,6 @@ const getAsset = async () => {
         asset
     } = defineComponentElement();
 
-    asset.innerHTML = loadingStatus();
-
     let url = `/api/home/asset?outlet_id=${outletId}&month_selected=${month}&year_selected=${year}`;
 
     await axios.get(url)
@@ -119,8 +127,6 @@ const getLiability = async () => {
         liability
     } = defineComponentElement();
 
-    liability.innerHTML = loadingStatus();
-
     let url = `/api/home/liability?outlet_id=${outletId}&month_selected=${month}&year_selected=${year}`;
 
     await axios.get(url)
@@ -137,8 +143,6 @@ const getEquity = async () => {
     const {
         equity
     } = defineComponentElement();
-
-    equity.innerHTML = loadingStatus();
 
     let url = `/api/home/equity?outlet_id=${outletId}&month_selected=${month}&year_selected=${year}`;
 
@@ -159,6 +163,7 @@ const prevMonth = async () => {
         year--;
     }
     showMonthStatus(month, year);
+    setLoading();
     await showData();
 }
 
@@ -169,6 +174,7 @@ const nextMonth = async () => {
         year++;
     }
     showMonthStatus(month, year);
+    setLoading();
     await showData();
 }
 
@@ -177,5 +183,6 @@ const getData = async () => {
 }
 
 window.addEventListener('load', async function(){
+    setLoading();
     await setDefaultValue();
 })
