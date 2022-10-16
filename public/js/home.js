@@ -64,6 +64,9 @@ const getLostProfit = async () => {
         lostProfitLabel, lostProfitValue, income, expense, lostProfitChartIcon
     } = defineComponentElement();
 
+    lostProfitLabel.innerHTML = loadingStatus();
+    lostProfitValue.innerHTML = loadingStatus();
+    lostProfitChartIcon.innerHTML = loadingStatus();
     income.innerHTML = loadingStatus();
     expense.innerHTML = loadingStatus();
 
