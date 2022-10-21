@@ -7,6 +7,7 @@ use App\Model\Outlet;
 use App\Model\Account;
 use App\Model\Category;
 use App\Model\OutletUser;
+use App\Model\CreditSales;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,15 @@ class HomeController extends Controller
     public function index()
     {
         $outletUser = OutletUser::where('user_id', Auth::user()->id)->first();
+
+        if (!$outletUser) {
+            $creditSales = CreditSales::where('user_id', Auth::user()->id)->first();
+            if ($creditSales) {
+                return redirect('/credit-partner/partner=' . $creditSales['credit_partner_id'] . '/customer');
+            }
+
+        }
+
         $outlet = Outlet::find($outletUser->outlet_id);
 
         $cashAccounts = Account::where('outlet_id', $outletUser->outlet_id)

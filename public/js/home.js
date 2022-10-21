@@ -31,12 +31,10 @@ const loadingStatus = () => {
 
 const setLoading = () => {
     const {
-        lostProfitLabel, lostProfitValue, income, expense, lostProfitChartIcon, asset, liability, equity
+        lostProfitValue, income, expense, asset, liability, equity
     } = defineComponentElement();
 
-    lostProfitLabel.innerHTML = loadingStatus();
     lostProfitValue.innerHTML = loadingStatus();
-    lostProfitChartIcon.innerHTML = loadingStatus();
     income.innerHTML = loadingStatus();
     expense.innerHTML = loadingStatus();
     asset.innerHTML = loadingStatus();
